@@ -30,3 +30,12 @@
 *.exe
 *.out
 *.app
+*.elf
+*.bin
+*.hex
+*.map
+
+# Directories
+DebugConfig/
+Listings/
+Objects/
