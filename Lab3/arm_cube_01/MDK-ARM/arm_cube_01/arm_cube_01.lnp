@@ -1,0 +1,23 @@
+--cpu Cortex-M3
+"arm_cube_01\startup_stm32f107xc.o"
+"arm_cube_01\main.o"
+"arm_cube_01\stm32f1xx_it.o"
+"arm_cube_01\stm32f1xx_hal_msp.o"
+"arm_cube_01\stm32f1xx_hal_gpio_ex.o"
+"arm_cube_01\stm32f1xx_hal_tim.o"
+"arm_cube_01\stm32f1xx_hal_tim_ex.o"
+"arm_cube_01\stm32f1xx_hal.o"
+"arm_cube_01\stm32f1xx_hal_rcc.o"
+"arm_cube_01\stm32f1xx_hal_rcc_ex.o"
+"arm_cube_01\stm32f1xx_hal_gpio.o"
+"arm_cube_01\stm32f1xx_hal_dma.o"
+"arm_cube_01\stm32f1xx_hal_cortex.o"
+"arm_cube_01\stm32f1xx_hal_pwr.o"
+"arm_cube_01\stm32f1xx_hal_flash.o"
+"arm_cube_01\stm32f1xx_hal_flash_ex.o"
+"arm_cube_01\stm32f1xx_hal_exti.o"
+"arm_cube_01\system_stm32f1xx.o"
+--strict --scatter "arm_cube_01\arm_cube_01.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "arm_cube_01.map" -o arm_cube_01\arm_cube_01.axf
