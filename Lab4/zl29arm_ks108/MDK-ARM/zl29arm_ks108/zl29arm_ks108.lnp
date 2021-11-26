@@ -1,0 +1,28 @@
+--cpu Cortex-M3
+"zl29arm_ks108\startup_stm32f107xc.o"
+"zl29arm_ks108\main.o"
+"zl29arm_ks108\gpio.o"
+"zl29arm_ks108\tim.o"
+"zl29arm_ks108\stm32f1xx_it.o"
+"zl29arm_ks108\stm32f1xx_hal_msp.o"
+"zl29arm_ks108\glcd_port.o"
+"zl29arm_ks108\glcd.o"
+"zl29arm_ks108\font.o"
+"zl29arm_ks108\stm32f1xx_hal_gpio_ex.o"
+"zl29arm_ks108\stm32f1xx_hal_tim.o"
+"zl29arm_ks108\stm32f1xx_hal_tim_ex.o"
+"zl29arm_ks108\stm32f1xx_hal.o"
+"zl29arm_ks108\stm32f1xx_hal_rcc.o"
+"zl29arm_ks108\stm32f1xx_hal_rcc_ex.o"
+"zl29arm_ks108\stm32f1xx_hal_gpio.o"
+"zl29arm_ks108\stm32f1xx_hal_dma.o"
+"zl29arm_ks108\stm32f1xx_hal_cortex.o"
+"zl29arm_ks108\stm32f1xx_hal_pwr.o"
+"zl29arm_ks108\stm32f1xx_hal_flash.o"
+"zl29arm_ks108\stm32f1xx_hal_flash_ex.o"
+"zl29arm_ks108\stm32f1xx_hal_exti.o"
+"zl29arm_ks108\system_stm32f1xx.o"
+--strict --scatter "zl29arm_ks108\zl29arm_ks108.sct"
+--summary_stderr --info summarysizes --map --xref --callgraph --symbols
+--info sizes --info totals --info unused --info veneers
+--list "zl29arm_ks108.map" -o zl29arm_ks108\zl29arm_ks108.axf

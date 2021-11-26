@@ -1,6 +1,0 @@
---c99 -c --cpu Cortex-M3 -D__EVAL -g -O3 --apcs=interwork --split_sections -I../Core/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc -I../Drivers/STM32F1xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F1xx/Include -I../Drivers/CMSIS/Include
--I D:\c_cpp_arm_2021\c_cpp_arm\Lab3\arm_cube_01\MDK-ARM\RTE
--I C:\Keil_arm_v5\ARM\PACK\ARM\CMSIS\4.3.0\CMSIS\Include
--I C:\Keil_arm_v5\ARM\PACK\Keil\STM32F1xx_DFP\1.1.0\Device\Include
--D__UVISION_VERSION="515" -D_RTE_ -DSTM32F10X_CL -DUSE_HAL_DRIVER -DSTM32F107xC
--o arm_cube_01\stm32f1xx_hal_dma.o --omf_browse arm_cube_01\stm32f1xx_hal_dma.crf --depend arm_cube_01\stm32f1xx_hal_dma.d "../Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c"

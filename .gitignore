@@ -35,6 +35,10 @@
 *.hex
 *.map
 
+*.__i
+*.htm*
+
+
 # Directories
 DebugConfig/
 Listings/
