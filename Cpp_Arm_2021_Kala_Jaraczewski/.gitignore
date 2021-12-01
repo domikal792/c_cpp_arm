@@ -1,0 +1,6 @@
+*.su
+*.launch
+
+Drivers/
+Debug/
+.settings
