@@ -4,6 +4,7 @@
 #define APP_IMPL_HPP
 
 #include "AppInitStruct.h"
+#include "DischFirmwareSH1106.h"
 
 /// Application implementation.
 class AppImpl

@@ -89,9 +89,20 @@ int main(void)
   MX_USART2_UART_Init();
   MX_SPI2_Init();
   /* USER CODE BEGIN 2 */
+  DisplaySpiInterface displaySpiInterface =
+  {
+    .m_pSpi = SPI2,
+    .m_pCsPort = OLED_CS_GPIO_Port,
+    .m_CsPin = OLED_CS_Pin,
+    .m_pDcPort = OLED_DC_GPIO_Port,
+    .m_DcPin = OLED_DC_Pin,
+    .m_pResPort = OLED_RES_GPIO_Port,
+    .m_ResPin = OLED_RES_Pin
+  };
+
   AppInitStruct appInitStruct =
   {
-
+    .m_pDisplaySpiInterface = &displaySpiInterface
   };
 
   App_Init(&appInitStruct);
