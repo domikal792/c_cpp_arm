@@ -25,6 +25,7 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 #include "AppCInterface.h"
+#include "assert.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -105,7 +106,8 @@ int main(void)
     .m_pDisplaySpiInterface = &displaySpiInterface
   };
 
-  App_Init(&appInitStruct);
+  AppContext* pApp = App_Create(&appInitStruct);
+  assert(pApp != NULL);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -115,9 +117,9 @@ int main(void)
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
-    App_Tick();
+    App_Tick(pApp);
 #ifdef DEBUG
-    App_DebugTick();
+    App_DebugTick(pApp);
 #endif
   }
   /* USER CODE END 3 */

@@ -1,27 +1,32 @@
 /// @file AppCInterface.cpp
 
 #include "AppCInterface.h"
+#include "assert.h"
+
 #include "AppImpl.hpp"
 
-AppImpl& GetInstance(const AppInitStruct* const pAppInitStruct = nullptr)
+AppContext* App_Create(const AppInitStruct* const pAppInitStruct)
 {
     static AppImpl appImpl(pAppInitStruct);
-    return appImpl;
-}
+    static AppContext appContext =
+    {
+        .m_pAppContext = &appImpl
+    };
 
-void App_Init(const AppInitStruct* const pAppInitStruct)
-{
-    (void)GetInstance(pAppInitStruct);
+    return &appContext;
 }
-
-void App_Tick()
+void App_Tick(AppContext* const pAppContext)
 {
-    GetInstance().Tick();
+    assert(pAppContext != nullptr);
+    assert(pAppContext->m_pAppContext != nullptr);
+    static_cast<AppImpl*>(pAppContext->m_pAppContext)->Tick();
 }
 
 #ifdef DEBUG
-void App_DebugTick()
+void App_DebugTick(AppContext* const pAppContext)
 {
-    GetInstance().DebugTick();
+    assert(pAppContext != nullptr);
+    assert(pAppContext->m_pAppContext != nullptr);
+    static_cast<AppImpl*>(pAppContext->m_pAppContext)->DebugTick();
 }
 #endif
