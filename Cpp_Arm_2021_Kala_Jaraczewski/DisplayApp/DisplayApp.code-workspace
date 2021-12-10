@@ -1,0 +1,50 @@
+{
+	"folders": [
+		{
+			"name": "App",
+			"path": "App"
+		},
+		{
+			"name": "Core",
+			"path": "Core"
+		},
+		{
+			"name": "Drivers",
+			"path": "Drivers"
+		}
+	],
+    "settings": {
+        "C_Cpp.default.intelliSenseMode": "gcc-arm",
+        "C_Cpp.default.cStandard": "c11",
+        "C_Cpp.default.cppStandard": "c++11",	
+        "C_Cpp.enhancedColorization": "Enabled",
+        "fileHeaderComment.parameter": {
+            "*": {
+                "commentprefix": "///",
+            }
+        },
+        "fileHeaderComment.template": {
+            "*" : [
+                "${commentprefix} @file ${filename}", 
+                "${commentprefix}",
+                "${commentprefix} @note Copyright (c) ${year} ArmCpp - Kala, Jaraczewski",
+            ]
+        },
+        "doxdocgen.c.commentPrefix": "/// ",
+        "doxdocgen.c.firstLine": "",
+        "doxdocgen.c.lastLine": "",
+        "doxdocgen.generic.briefTemplate": "{text}",
+        "doxdocgen.generic.useGitUserName": true,
+        "cSpell.language": "en",
+    },
+    "extensions": {
+        "recommendations": [
+            "eamodio.gitlens", 
+            "ms-vscode.cpptools", 
+            "doi.fileheadercomment",
+            "cschlosser.doxdocgen",
+            "CoenraadS.bracket-pair-colorizer",
+            "streetsidesoftware.code-spell-checker"
+        ],
+    }
+}
