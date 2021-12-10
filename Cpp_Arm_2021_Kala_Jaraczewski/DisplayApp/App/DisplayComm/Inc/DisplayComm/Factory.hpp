@@ -54,7 +54,7 @@ public:
     ///
     /// @return DisplayCommIf* Pointer to a newly allocated communication driver object. 
     static DisplayCommIf* CreateDisplayCommSpi(SPI_TypeDef* const pSpi,
-			         	  	  	               GPIO_TypeDef* const pCsPort, 
+                                               GPIO_TypeDef* const pCsPort, 
                                                const uint32_t csPin,
                                                const DisplayDataCmdIf* const pDataCmdIf);
 

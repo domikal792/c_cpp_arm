@@ -31,13 +31,13 @@ public:
     DisplayCommSpiImpl(SPI_TypeDef* const pSpi,
                        GPIO_TypeDef* const pCsPort, 
                        const uint32_t csPin,
-                        const DisplayDataCmdIf* const pDataCmdIf);
+                       const DisplayDataCmdIf* const pDataCmdIf);
 
     /// @copydoc DisplayComm::DisplayCommIf::WriteCmd
     bool WriteCmd(const uint8_t cmd) const override;
 
     /// @copydoc DisplayComm::DisplayCommIf::WriteData
-    bool WriteData(const uint8_t* pData, const size_t dataSize) const override;
+    bool WriteData(const uint8_t* const pData, const size_t dataSize) const override;
 
 private:
     static constexpr const uint32_t TXE_FLAG_CHECKS_MAX_NUM = 1000U; 

@@ -32,7 +32,7 @@ public:
     /// @param dataSize Data size in bytes.
     ///
     /// @return Write result.
-    virtual bool WriteData(const uint8_t* pData, const size_t dataSize) const = 0;
+    virtual bool WriteData(const uint8_t* const pData, const size_t dataSize) const = 0;
 };
 
 }

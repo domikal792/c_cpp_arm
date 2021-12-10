@@ -20,10 +20,10 @@ DisplayResetImpl::DisplayResetImpl(GPIO_TypeDef* const pResetPort,
 
 void DisplayResetImpl::Reset() const 
 {
-	LL_GPIO_ResetOutputPin(m_pResetPort, m_ResetPin);
-	LL_mDelay(10U);
-	LL_GPIO_SetOutputPin(m_pResetPort, m_ResetPin);
-	LL_mDelay(10U);
+    LL_GPIO_ResetOutputPin(m_pResetPort, m_ResetPin);
+    LL_mDelay(10U);
+    LL_GPIO_SetOutputPin(m_pResetPort, m_ResetPin);
+    LL_mDelay(10U);
 }
 
 }
