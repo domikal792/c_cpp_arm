@@ -6,6 +6,17 @@
 #include "AppInitStruct.h"
 #include "DischFirmwareSH1106.h"
 
+#include <memory>
+
+namespace DisplayComm
+{
+
+class DisplayResetIf;
+class DisplayDataCmdIf;
+class DisplayCommIf;
+
+}
+
 /// Application implementation.
 class AppImpl
 {
@@ -27,7 +38,9 @@ public:
 #endif
 
 private:
-
+    std::unique_ptr<DisplayComm::DisplayResetIf> m_pDisplayReset;
+    std::unique_ptr<DisplayComm::DisplayDataCmdIf> m_pDisplayDataCmd;
+    std::unique_ptr<DisplayComm::DisplayCommIf> m_pDisplayComm;
 };
 
 #endif

@@ -7,6 +7,9 @@
 #include "DischFirmwareFonts.h"
 #include "DischFirmwarePhotos.h"
 
+#include "DisplayComm/DisplayCommIf.hpp"
+#include "DisplayComm/DisplayResetIf.hpp"
+
 namespace disch
 {
 namespace firmware
@@ -42,10 +45,8 @@ public:
 
 	static SH1106 &getInstance();
 
-	void setSpiInterface(SPI_TypeDef * SPIx,
-			  	  	  	 GPIO_TypeDef * csPort, uint32_t csPin,
-						 GPIO_TypeDef * dcPort, uint32_t dcPin,
-						 GPIO_TypeDef * resPort, uint32_t resPin);
+	void setCommInterface(DisplayComm::DisplayCommIf* pDisplayCommIf,
+				      	  DisplayComm::DisplayResetIf* pDisplayResetIf);
 
 	bool init();
 
@@ -84,14 +85,8 @@ private:
 	// Some displays has column offset
 	static constexpr const uint8_t COLUMN_OFFSET = 2;
 
-	static constexpr const uint32_t TXE_FLAG_CHECKS_MAX_NUM = 1000;
-	SPI_TypeDef * m_SPIx = nullptr;
-	GPIO_TypeDef * m_csPort = nullptr,
-				 * m_dcPort = nullptr,
-				 * m_resPort = nullptr;
-	uint32_t m_csPin,
-			 m_dcPin,
-			 m_resPin;
+	DisplayComm::DisplayCommIf* m_pDisplayCommIf = nullptr;
+	DisplayComm::DisplayResetIf* m_pDisplayResetIf = nullptr;
 
 	uint8_t * m_buf = nullptr;
 	sPoint m_currPoint;

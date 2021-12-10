@@ -16,8 +16,6 @@ constexpr const bool SH1106::MIRROR_VERT;
 constexpr const bool SH1106::MIRROR_HORIZ;
 constexpr const uint8_t SH1106::COLUMN_OFFSET;
 
-constexpr const uint32_t SH1106::TXE_FLAG_CHECKS_MAX_NUM;
-
 SH1106 &SH1106::getInstance()
 {
 	static SH1106 instance;
@@ -34,23 +32,16 @@ SH1106::~SH1106()
 	delete[] m_buf;
 }
 
-void SH1106::setSpiInterface(SPI_TypeDef * SPIx,
-			  	  GPIO_TypeDef * csPort, uint32_t csPin,
-				  GPIO_TypeDef * dcPort, uint32_t dcPin,
-				  GPIO_TypeDef * resPort, uint32_t resPin)
+void SH1106::setCommInterface(DisplayComm::DisplayCommIf* pDisplayCommIf,
+					  		  DisplayComm::DisplayResetIf* pDisplayResetIf)
 {
-	m_SPIx = SPIx;
-	m_csPort = csPort;
-	m_csPin = csPin;
-	m_dcPort = dcPort;
-	m_dcPin = dcPin;
-	m_resPort = resPort;
-	m_resPin = resPin;
+	m_pDisplayCommIf = pDisplayCommIf;
+	m_pDisplayResetIf = pDisplayResetIf;
 }
 
 bool SH1106::init()
 {
-	if(!m_SPIx || !m_csPort || !m_dcPort || !m_resPort)
+	if(!m_pDisplayCommIf || !m_pDisplayResetIf)
 		return false;
 
 	if(!m_buf)
@@ -349,49 +340,17 @@ bool SH1106::updateScreen()
 
 void SH1106::reset()
 {
-	LL_GPIO_SetOutputPin(m_csPort, m_csPin);
-
-	LL_GPIO_ResetOutputPin(m_resPort, m_resPin);
-	LL_mDelay(10);
-	LL_GPIO_SetOutputPin(m_resPort, m_resPin);
-	LL_mDelay(10);
+	m_pDisplayResetIf->Reset();
 }
 
 bool SH1106::writeCmd(uint8_t cmd)
 {
-	uint32_t txeCheckCounter = 0;
-	LL_GPIO_ResetOutputPin(m_csPort, m_csPin);
-	LL_GPIO_ResetOutputPin(m_dcPort, m_dcPin);
-	LL_SPI_Enable(m_SPIx);
-
-	LL_SPI_TransmitData8(m_SPIx, cmd);
-	while(LL_SPI_IsActiveFlag_BSY(m_SPIx) &&
-		  ++txeCheckCounter < TXE_FLAG_CHECKS_MAX_NUM);
-
-	LL_SPI_Disable(m_SPIx);
-
-	LL_GPIO_SetOutputPin(m_csPort, m_csPin);
-
-	return txeCheckCounter < TXE_FLAG_CHECKS_MAX_NUM;
+	return m_pDisplayCommIf->WriteCmd(cmd);
 }
 
 bool SH1106::writeData(uint8_t * pData, uint8_t dataLen)
 {
-	uint32_t txeCheckCounter = 0;
-	LL_GPIO_ResetOutputPin(m_csPort, m_csPin);
-	LL_GPIO_SetOutputPin(m_dcPort, m_dcPin);
-	LL_SPI_Enable(m_SPIx);
-
-	for(uint8_t i = 0; i < dataLen && txeCheckCounter < TXE_FLAG_CHECKS_MAX_NUM; ++i) {
-		LL_SPI_TransmitData8(m_SPIx, pData[i]);
-		while(LL_SPI_IsActiveFlag_BSY(m_SPIx) &&
-			  ++txeCheckCounter < TXE_FLAG_CHECKS_MAX_NUM);
-	}
-
-	LL_SPI_Disable(m_SPIx);
-	LL_GPIO_SetOutputPin(m_csPort, m_csPin);
-
-	return (txeCheckCounter < TXE_FLAG_CHECKS_MAX_NUM);
+	return m_pDisplayCommIf->WriteData(pData, static_cast<size_t>(dataLen));
 }
 
 bool SH1106::displayPhoto(const Photo & photo)
