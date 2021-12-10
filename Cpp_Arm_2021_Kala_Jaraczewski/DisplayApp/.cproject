@@ -71,6 +71,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/DisplayApp/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/Display/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/DisplayComm/Inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/GraphicalScreen/Inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/Sh1106/Inc}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.1504624744" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp"/>
 							</tool>
@@ -169,6 +171,8 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/DisplayApp/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/Display/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/DisplayComm/Inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/GraphicalScreen/Inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/Sh1106/Inc}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.287635891" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp"/>
 							</tool>
