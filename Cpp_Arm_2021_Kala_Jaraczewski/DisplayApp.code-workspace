@@ -2,16 +2,20 @@
 	"folders": [
 		{
 			"name": "App",
-			"path": "App"
+			"path": "DisplayApp/App"
 		},
 		{
 			"name": "Core",
-			"path": "Core"
+			"path": "DisplayApp/Core"
 		},
 		{
 			"name": "Drivers",
-			"path": "Drivers"
-		}
+			"path": "DisplayApp/Drivers"
+		},
+        {
+            "name": "Root",
+            "path": "."
+        }
 	],
     "settings": {
         "C_Cpp.default.intelliSenseMode": "gcc-arm",
@@ -44,7 +48,8 @@
             "doi.fileheadercomment",
             "cschlosser.doxdocgen",
             "CoenraadS.bracket-pair-colorizer",
-            "streetsidesoftware.code-spell-checker"
+            "streetsidesoftware.code-spell-checker",
+            "shd101wyy.markdown-preview-enhanced"
         ],
     }
 }
