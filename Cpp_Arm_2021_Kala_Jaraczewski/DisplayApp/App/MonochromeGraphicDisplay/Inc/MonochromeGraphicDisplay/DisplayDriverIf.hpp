@@ -1,19 +1,23 @@
-/// @file GraphicalScreenDriverIf.hpp
+/// @file DisplayDriverIf.hpp
 ///
 /// @note Copyright (c) 2021 ArmCpp - Kala, Jaraczewski
 
-#ifndef GRAPHICALSCREEN_GRAPHICALSCREENDRIVERIF_HPP
-#define GRAPHICALSCREEN_GRAPHICALSCREENDRIVERIF_HPP
+#ifndef MONOCHROMEGRAPHICDISPLAY_DISPLAYDRIVERIF_HPP
+#define MONOCHROMEGRAPHICDISPLAY_DISPLAYDRIVERIF_HPP
 
 #include <cstdint>
 #include <cstddef>
 
-namespace GraphicalScreen
+namespace MonochromeGraphicsDisplay
 {
 
 /// Diver interface of graphical screens.
-class GraphicalScreenDriverIf
+class DisplayDriverIf
 {
+    virtual ~DisplayDriverIf()
+    {
+    }
+
     /// Turns on display.
     /// 
     /// @return Result.
@@ -31,7 +35,7 @@ class GraphicalScreenDriverIf
     /// @return Result.
     virtual bool InverseColor(bool inverse) = 0;
 
-    /// Set the contrast
+    /// Set the contrast.
     /// 
     /// @param value Contrast [0u..255u].
     ///
@@ -45,10 +49,10 @@ class GraphicalScreenDriverIf
 
     /// Get the column buffer.
     /// 
-    /// @param columnIdx [0u..GetScreenWidth()] index of an column, starting at left-top corner.
+    /// @param rowIdx [0u..ceil(GetScreenHeight() / 8)] index of an row, starting at left-top corner.
     ///
-    /// @return Buffer with length of ceil(GetScreenHeight() / 8) bytes.
-    virtual uint8_t* GetColumnBuffer(const size_t columnIdx) = 0;
+    /// @return Buffer with length of GetWidth() bytes.
+    virtual uint8_t* GetRowBuffer(const size_t rowIdx) = 0;
 
     /// Get the display width.
     /// 
@@ -59,7 +63,6 @@ class GraphicalScreenDriverIf
     /// 
     /// @return Height in pixels. 
     virtual size_t GetHeight() = 0;
-
 };
 
 }
