@@ -17,17 +17,13 @@ package "GraphicalScreen" {
 
 package "Sh1106" {
     package "Inc" {
-        () Sh1106If #palegreen
-
         [Factory]
-
-        Sh1106If -u-> GraphicalScreenDriverIf
     }
 
     package "Src" {
         [Sh1106Impl]
 
-        Sh1106Impl -u-> Sh1106If
+        Sh1106Impl -u-> GraphicalScreenDriverIf
         Sh1106Impl o-- DisplayCommIf
         Sh1106Impl o-- DisplayResetIf
     } 
