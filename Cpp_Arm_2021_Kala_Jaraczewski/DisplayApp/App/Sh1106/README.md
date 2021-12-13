@@ -11,8 +11,8 @@ package "DisplayComm" {
     () DisplayResetIf #palegreen
 }
 
-package "GraphicalScreen" {
-    () GraphicalScreenDriverIf #palegreen
+package "MonochromeGraphicDisplay" {
+    () DisplayDriverIf #palegreen
 }
 
 package "Sh1106" {
@@ -23,7 +23,7 @@ package "Sh1106" {
     package "Src" {
         [Sh1106Impl]
 
-        Sh1106Impl -u-> GraphicalScreenDriverIf
+        Sh1106Impl -u-> DisplayDriverIf
         Sh1106Impl o-- DisplayCommIf
         Sh1106Impl o-- DisplayResetIf
     } 

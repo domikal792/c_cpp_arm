@@ -5,10 +5,10 @@
 #ifndef SH1106_FACTORY_HPP
 #define SH1106_FACTORY_HPP
 
-namespace GraphicalScreen
+namespace MonochromeGraphicDisplay
 {
 
-class GraphicalScreenDriverIf;
+class DisplayDriverIf;
 
 }
 
@@ -34,9 +34,9 @@ public:
     ///
     /// @note User takes responsibility for managing lifetime of returned object!
     ///
-    /// @return GraphicalScreen::GraphicalScreenDriverIf* Pointer to a newly allocated SH1106 driver object. 
-    static GraphicalScreen::GraphicalScreenDriverIf* CreateDriver(DisplayComm::DisplayCommIf *pDisplayCommIf, 
-                                                                  DisplayComm::DisplayResetIf *pDisplayResetIf);
+    /// @return Pointer to a newly allocated SH1106 driver object. 
+    static MonochromeGraphicDisplay::DisplayDriverIf* CreateDriver(DisplayComm::DisplayCommIf *pDisplayCommIf, 
+                                                                   DisplayComm::DisplayResetIf *pDisplayResetIf);
 
 private:
     Factory(const Factory&) = delete;

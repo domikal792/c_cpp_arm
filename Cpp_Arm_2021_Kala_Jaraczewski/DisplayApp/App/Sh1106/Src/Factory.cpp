@@ -10,11 +10,11 @@
 namespace Sh1106
 {
 
-GraphicalScreen::GraphicalScreenDriverIf* Factory::CreateDriver(DisplayComm::DisplayCommIf *pDisplayCommIf, 
-                                                                DisplayComm::DisplayResetIf *pDisplayResetIf)
+MonochromeGraphicDisplay::DisplayDriverIf* Factory::CreateDriver(DisplayComm::DisplayCommIf *pDisplayCommIf, 
+                                                                 DisplayComm::DisplayResetIf *pDisplayResetIf)
 {
     // TODO: Implement factory method.
-    GraphicalScreen::GraphicalScreenDriverIf* pSh1106Driver = nullptr;
+    MonochromeGraphicDisplay::DisplayDriverIf* pSh1106Driver = nullptr;
     assert(pSh1106Driver != nullptr);
     return pSh1106Driver;
 }

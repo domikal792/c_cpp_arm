@@ -5,7 +5,7 @@
 #ifndef SH1106_SH1106_IMPL_HPP
 #define SH1106_SH1106_IMPL_HPP
 
-#include "GraphicalScreen/GraphicalScreenDriverIf.hpp"
+#include "MonochromeGraphicDisplay/DisplayDriverIf.hpp"
 
 namespace DisplayComm
 {
@@ -20,7 +20,7 @@ namespace Sh1106
 
 /// Implementation of SH1106 driver.
 class Sh1106Impl // :
-    // public GraphicalScreen::GraphicalScreenDriverIf // TODO: Inherit from GraphicalScreenDriverIf
+    // public MonochromeGraphicDisplay::DisplayDriverIf // TODO: Inherit from DisplayDriverIf
 {
 public:
     /// Construct a new Sh1106 driver.
@@ -29,7 +29,7 @@ public:
     /// @param pDisplayResetIf Pointer to the display reset interface.
     Sh1106Impl(DisplayComm::DisplayCommIf *pDisplayCommIf, DisplayComm::DisplayResetIf *pDisplayResetIf);
 
-    // TODO: Add missing methods form GraphicalScreenDriverIf
+    // TODO: Add missing methods form DisplayDriverIf
 };
 
 }

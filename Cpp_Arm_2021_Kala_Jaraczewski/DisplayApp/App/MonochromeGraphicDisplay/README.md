@@ -1,16 +1,22 @@
-# Graphical Screen component
+# Monochrome Graphic Display component
 
 ```plantuml
 
 @startuml
 
-package "GraphicalScreen" {
+package "MonochromeGraphicDisplay" {
     package "Inc" {
-        () GraphicalScreenDriverIf #palegreen
+        () DisplayDriverIf #palegreen
+        () MonochromeGraphicDisplayIf #palegreen
+
+        [Factory]
     }
 
     package "Src" {
+        [MonochromeGraphicDisplayImpl]
 
+        MonochromeGraphicDisplayImpl --> MonochromeGraphicDisplayIf
+        MonochromeGraphicDisplayImpl o-u- DisplayDriverIf
     }
 }
 
