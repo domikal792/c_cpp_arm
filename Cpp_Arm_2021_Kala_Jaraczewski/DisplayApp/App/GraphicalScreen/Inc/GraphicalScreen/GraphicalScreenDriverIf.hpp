@@ -11,54 +11,54 @@
 namespace GraphicalScreen
 {
 
+/// Diver interface of graphical screens.
 class GraphicalScreenDriverIf
 {
-    /// Turns on display
+    /// Turns on display.
     /// 
-    /// @return true 
-    /// @return false 
+    /// @return Result.
     virtual bool TurnOnDisplay() = 0;
 
-    /// Turns off display
+    /// Turns off display.
     /// 
-    /// @return true 
-    /// @return false 
+    /// @return Result.
     virtual bool TurnOffDisplay() = 0;
 
-    /// Set the Color object
+    /// Inverse display colors.
     /// 
     /// @param color [0 - normal, 1 - inversed]
-    /// @return true 
-    /// @return false 
-    virtual bool SetColor(bool color) = 0;
+    ///
+    /// @return Result.
+    virtual bool InverseColor(bool inverse) = 0;
 
-    /// Set the Contrast object
+    /// Set the contrast
     /// 
-    /// @param value contrast [0u..255u]
-    /// @return true 
-    /// @return false 
+    /// @param value Contrast [0u..255u].
+    ///
+    /// @return Result.
     virtual bool SetContrast(uint8_t value) = 0;
 
-    /// Update screen
+    /// Refresh screen.
     /// 
-    /// @return true 
-    /// @return false 
-    virtual bool UpdateScreen() = 0;
+    /// @return Result.
+    virtual bool RefreshScreen() = 0;
 
-    /// Get the Buffer object
+    /// Get the column buffer.
     /// 
-    /// @return uint8_t* 
-    virtual uint8_t* GetBuffer() = 0;
+    /// @param columnIdx [0u..GetScreenWidth()] index of an column, starting at left-top corner.
+    ///
+    /// @return Buffer with length of ceil(GetScreenHeight() / 8) bytes.
+    virtual uint8_t* GetColumnBuffer(const size_t columnIdx) = 0;
 
-    /// Get the Screen Width object
+    /// Get the display width.
     /// 
-    /// @return uint8_t 
-    virtual uint8_t GetScreenWidth() = 0;
+    /// @return Width in pixels. 
+    virtual size_t GetWidth() = 0;
 
-    /// Get the Screen Height object
+    /// Get the display height.
     /// 
-    /// @return uint8_t 
-    virtual uint8_t GetScreenHeight() = 0;
+    /// @return Height in pixels. 
+    virtual size_t GetHeight() = 0;
 
 };
 
