@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <cstddef>
 
-namespace MonochromeGraphicsDisplay
+namespace MonochromeGraphicDisplay
 {
 
 /// Diver interface of graphical screens.
