@@ -12,34 +12,29 @@ package "DisplayComm" {
     () DisplayDataCmdIf #palegreen
 }
 
-package "GraphicalScreen" {
-    () GraphicalScreenDriverIf #palegreen
-    () GraphicalScreenIf #palegreen
+package "Sh1106" {
 
-    GraphicalScreenIf o-- GraphicalScreenDriverIf
 }
 
+package "MonochromeGraphicDisplay" {
+    () DisplayDriverIf #palegreen
+    () MonochromeGraphicDisplayIf #palegreen
 
-
-package "Sh1106Component" {
-    
-        [Sh1106]
-
-        Sh1106 --> GraphicalScreenDriverIf
-        Sh1106 o-- DisplayResetIf
-        Sh1106 o-- DisplayCommIf
-
+    MonochromeGraphicDisplayIf o-- DisplayDriverIf
 }
 
 package "DisplayApp" {
         [AppImpl]
 
-        AppImpl *-- Sh1106
+        AppImpl *-- DisplayDriverIf
         AppImpl *-- DisplayResetIf
         AppImpl *-- DisplayCommIf
         AppImpl *-- DisplayDataCmdIf
-        AppImpl *-- GraphicalScreenIf
+        AppImpl *-- MonochromeGraphicDisplayIf
 }
+
+Sh1106 o-- DisplayResetIf
+Sh1106 o-- DisplayCommIf
 
 @enduml
 
