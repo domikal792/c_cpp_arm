@@ -1,4 +1,6 @@
 /// @file AppImpl.hpp
+///
+/// @note Copyright (c) 2021 ArmCpp - Kala, Jaraczewski
 
 #ifndef APP_IMPL_HPP
 #define APP_IMPL_HPP
@@ -14,6 +16,13 @@ namespace DisplayComm
 class DisplayResetIf;
 class DisplayDataCmdIf;
 class DisplayCommIf;
+
+}
+
+namespace MonochromeGraphicDisplay
+{
+
+class DisplayDriverIf;
 
 }
 
@@ -41,6 +50,7 @@ private:
     std::unique_ptr<DisplayComm::DisplayResetIf> m_pDisplayReset;
     std::unique_ptr<DisplayComm::DisplayDataCmdIf> m_pDisplayDataCmd;
     std::unique_ptr<DisplayComm::DisplayCommIf> m_pDisplayComm;
+    std::unique_ptr<MonochromeGraphicDisplay::DisplayDriverIf> m_pDisplayDriver;
 };
 
 #endif

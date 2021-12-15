@@ -14,6 +14,7 @@ namespace MonochromeGraphicDisplay
 /// Diver interface of graphical screens.
 class DisplayDriverIf
 {
+public:
     virtual ~DisplayDriverIf()
     {
     }
@@ -47,12 +48,11 @@ class DisplayDriverIf
     /// @return Result.
     virtual bool RefreshScreen() = 0;
 
-    /// Get the column buffer.
+    /// Get display view object.
     /// 
-    /// @param rowIdx [0u..ceil(GetScreenHeight() / 8)] index of an row, starting at left-top corner.
-    ///
-    /// @return Buffer with length of GetWidth() bytes.
-    virtual uint8_t* GetRowBuffer(const size_t rowIdx) = 0;
+    /// @return Reference to display view object.
+    // TODO: Return MonochromeView object.
+    virtual uint8_t* GetView() = 0;
 
     /// Get the display width.
     /// 

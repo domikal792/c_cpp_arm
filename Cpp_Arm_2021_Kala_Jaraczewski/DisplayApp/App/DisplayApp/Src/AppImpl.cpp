@@ -1,12 +1,20 @@
 /// @file AppImpl.cpp
+///
+/// @note Copyright (c) 2021 ArmCpp - Kala, Jaraczewski
+
+#include <cstring>
+
+#include "main.h"
+#include "DischFirmwareSH1106.h"
+#include "DischFirmwarePhotos.h"
 
 #include "AppImpl.hpp"
-#include "DischFirmwareSH1106.h"
-
 #include "DisplayComm/Factory.hpp"
 #include "DisplayComm/DisplayResetIf.hpp"
 #include "DisplayComm/DisplayDataCmdIf.hpp"
 #include "DisplayComm/DisplayCommIf.hpp"
+#include "Sh1106/Factory.hpp"
+#include "MonochromeGraphicDisplay/DisplayDriverIf.hpp"
 
 using namespace disch::firmware;
 
@@ -29,26 +37,34 @@ AppImpl::AppImpl(const AppInitStruct* const pAppInitStruct)
         m_pDisplayDataCmd.get()
     ));
 
-    SH1106::getInstance().setCommInterface(m_pDisplayComm.get(), m_pDisplayReset.get());
-    SH1106::getInstance().init();
+    m_pDisplayDriver.reset(Sh1106::Factory::Create128x64Driver(m_pDisplayComm.get(), m_pDisplayReset.get()));
 
-    constexpr const char ARM_CPP[] = "ARM CPP";
-    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(ARM_CPP) - 1) * 16) / 2, 0 });
-    SH1106::getInstance().writeString(ARM_CPP, font16x26, SH1106::COLOR_BLUE);
+    memcpy(m_pDisplayDriver->GetView(), disch::firmware::sgLogoPhoto.getData(), 128*8);
+    m_pDisplayDriver->RefreshScreen();
 
-    constexpr const char Y2021[] = "2021";
-    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(Y2021) - 1) * 7) / 2, 28 });
-    SH1106::getInstance().writeString(Y2021, font7x10, SH1106::COLOR_BLUE);
 
-    constexpr const char KALA_JARACZEWSKI[] = "Kala, Jaraczewski";
-    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(KALA_JARACZEWSKI) - 1) * 7) / 2, 40 });
-    SH1106::getInstance().writeString(KALA_JARACZEWSKI, font7x10, SH1106::COLOR_BLUE);
+//    SH1106::getInstance().setCommInterface(m_pDisplayComm.get(), m_pDisplayReset.get());
+//    SH1106::getInstance().init();
+//
+//    SH1106::getInstance().displayPhoto(disch::firmware::sgLogoPhoto);
 
-    constexpr const char TELEINFORMATYKA[] = "Teleinformatyka";
-    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(TELEINFORMATYKA) - 1) * 6) / 2, 52 });
-    SH1106::getInstance().writeString(TELEINFORMATYKA, font6x8, SH1106::COLOR_BLUE);
-
-    SH1106::getInstance().updateScreen();
+//    constexpr const char ARM_CPP[] = "ARM CPP";
+//    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(ARM_CPP) - 1) * 16) / 2, 0 });
+//    SH1106::getInstance().writeString(ARM_CPP, font16x26, SH1106::COLOR_BLUE);
+//
+//    constexpr const char Y2021[] = "2021";
+//    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(Y2021) - 1) * 7) / 2, 28 });
+//    SH1106::getInstance().writeString(Y2021, font7x10, SH1106::COLOR_BLUE);
+//
+//    constexpr const char KALA_JARACZEWSKI[] = "Kala, Jaraczewski";
+//    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(KALA_JARACZEWSKI) - 1) * 7) / 2, 40 });
+//    SH1106::getInstance().writeString(KALA_JARACZEWSKI, font7x10, SH1106::COLOR_BLUE);
+//
+//    constexpr const char TELEINFORMATYKA[] = "Teleinformatyka";
+//    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(TELEINFORMATYKA) - 1) * 6) / 2, 52 });
+//    SH1106::getInstance().writeString(TELEINFORMATYKA, font6x8, SH1106::COLOR_BLUE);
+//
+//    SH1106::getInstance().updateScreen();
 }
 
 AppImpl::~AppImpl()
@@ -58,7 +74,13 @@ AppImpl::~AppImpl()
 
 void AppImpl::Tick()
 {
-
+    LL_mDelay(500);
+    static bool inverse = false;
+    static uint8_t contrast = 255;
+    m_pDisplayDriver->InverseColor(inverse);
+    m_pDisplayDriver->SetContrast(contrast);
+    contrast -= 5;
+    inverse = !inverse;
 }
 
 #ifdef DEBUG
