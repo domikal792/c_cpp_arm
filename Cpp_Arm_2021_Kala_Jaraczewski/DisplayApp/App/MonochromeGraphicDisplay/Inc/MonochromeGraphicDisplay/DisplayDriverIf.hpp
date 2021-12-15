@@ -8,6 +8,13 @@
 #include <cstdint>
 #include <cstddef>
 
+namespace MonochromeView
+{
+
+class DynamicView;
+
+}
+
 namespace MonochromeGraphicDisplay
 {
 
@@ -51,8 +58,7 @@ public:
     /// Get display view object.
     /// 
     /// @return Reference to display view object.
-    // TODO: Return MonochromeView object.
-    virtual uint8_t* GetView() = 0;
+    virtual MonochromeView::DynamicView& GetView() = 0;
 
     /// Get the display width.
     /// 

@@ -15,6 +15,8 @@
 #include "DisplayComm/DisplayCommIf.hpp"
 #include "Sh1106/Factory.hpp"
 #include "MonochromeGraphicDisplay/DisplayDriverIf.hpp"
+#include "MonochromeView/ConstView.hpp"
+#include "MonochromeView/DynamicView.hpp"
 
 using namespace disch::firmware;
 
@@ -39,7 +41,8 @@ AppImpl::AppImpl(const AppInitStruct* const pAppInitStruct)
 
     m_pDisplayDriver.reset(Sh1106::Factory::Create128x64Driver(m_pDisplayComm.get(), m_pDisplayReset.get()));
 
-    memcpy(m_pDisplayDriver->GetView(), disch::firmware::sgLogoPhoto.getData(), 128*8);
+    MonochromeView::ConstView photo(disch::firmware::sgLogoPhoto.getData(), 128U, 64U);
+    m_pDisplayDriver->GetView().Draw(0U, 0U, photo);
     m_pDisplayDriver->RefreshScreen();
 
 

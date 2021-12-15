@@ -30,7 +30,8 @@ Sh1106Impl<WIDTH, HEIGHT>::Sh1106Impl(DisplayComm::DisplayCommIf* const pDisplay
     m_ColumnOffset(columnOffset),
     m_pDisplayCommIf(pDisplayCommIf),
     m_pDisplayResetIf(pDisplayResetIf),
-    m_IsColorInverted(false)
+    m_IsColorInverted(false),
+    m_DisplayView(m_DisplayBuffer, WIDTH, HEIGHT)
 {
     assert(m_pDisplayCommIf != nullptr);
     assert(m_pDisplayResetIf != nullptr);
@@ -101,9 +102,9 @@ bool Sh1106Impl<WIDTH, HEIGHT>::RefreshScreen()
 }
 
 template<size_t WIDTH, size_t HEIGHT>
-uint8_t* Sh1106Impl<WIDTH, HEIGHT>::GetView() 
+MonochromeView::DynamicView& Sh1106Impl<WIDTH, HEIGHT>::GetView() 
 {
-    return m_DisplayBuffer;
+    return m_DisplayView;
 }
 
 template<size_t WIDTH, size_t HEIGHT>

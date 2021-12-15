@@ -9,6 +9,7 @@
 #include <cstddef>
 
 #include "MonochromeGraphicDisplay/DisplayDriverIf.hpp"
+#include "MonochromeView/DynamicView.hpp"
 
 namespace DisplayComm
 {
@@ -59,7 +60,7 @@ public:
     bool RefreshScreen() override;
 
     /// @copydoc MonochromeGraphicDisplay::DisplayDriverIf::GetView
-    virtual uint8_t* GetView() override;
+    virtual MonochromeView::DynamicView& GetView() override;
 
     /// @copydoc MonochromeGraphicDisplay::DisplayDriverIf::GetWidth
     size_t GetWidth() override;
@@ -80,6 +81,7 @@ private:
     DisplayComm::DisplayResetIf* const m_pDisplayResetIf;
     bool m_IsColorInverted;
     uint8_t m_DisplayBuffer[DISPLAY_BUFFER_SIZE];
+    MonochromeView::DynamicView m_DisplayView;
 };
 
 }
