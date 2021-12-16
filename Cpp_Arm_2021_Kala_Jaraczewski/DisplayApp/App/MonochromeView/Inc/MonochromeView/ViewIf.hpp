@@ -15,6 +15,8 @@ namespace MonochromeView
 class ViewIf
 {
 public:
+    static constexpr const size_t PIXELS_PER_CELL = 8U;
+    
     virtual ~ViewIf()
     {
     }
@@ -27,6 +29,14 @@ public:
 
     /// Get constant data of an view.
     virtual const uint8_t* Data() const = 0;
+
+    /// Get color of the pixel.
+    /// 
+    /// @param x Horizontal coordinate.
+    /// @param y Vertical coordinate.
+    /// 
+    /// @return Color of the pixel. [0 - black, 1 - default color].
+    virtual bool GetPixelColor(const size_t x, const size_t y) const = 0;
 };
 
 }

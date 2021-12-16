@@ -28,6 +28,9 @@ public:
     /// @copydoc MonochromeView::ViewIf::Height
     size_t Height() const override;
 
+    /// @copydoc MonochromeView::ViewIf::GetPixelColor
+    bool GetPixelColor(const size_t x, const size_t y) const override;
+
 private:
     /// @copydoc MonochromeView::ViewIf::Data
     const uint8_t* Data() const override;

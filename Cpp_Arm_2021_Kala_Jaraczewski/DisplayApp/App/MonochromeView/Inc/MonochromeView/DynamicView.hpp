@@ -28,19 +28,22 @@ public:
     /// @copydoc MonochromeView::ViewIf::Height
     size_t Height() const override;
 
+    /// @copydoc MonochromeView::ViewIf::GetPixelColor
+    bool GetPixelColor(const size_t x, const size_t y) const override;
+
     /// Draw at {x, y} another view.
     /// 
     /// @param x Horizontal coordinate.
     /// @param y Vertical coordinate.
     /// @param rView View to draw.
-    void Draw(const size_t x, const size_t y, const ViewIf& rView);
+    void DrawAt(const int32_t x, const int32_t y, const ViewIf& rView);
 
     /// Draw at {x, y} a single pixel.
     /// 
     /// @param x Horizontal coordinate.
     /// @param y Vertical coordinate.
     /// @param color Color of the pixel. [0 - black, 1 - default color].
-    void Draw(const size_t x, const size_t y, const bool color);
+    void DrawAt(const size_t x, const size_t y, const bool color);
 
     /// Fill the whole view with a single color.
     /// 
