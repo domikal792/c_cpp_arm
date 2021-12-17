@@ -4,20 +4,19 @@
 
 #include <cstring>
 
-#include "main.h"
-#include "DischFirmwareSH1106.h"
-#include "DischFirmwarePhotos.h"
+#include "assert.h"
 
 #include "AppImpl.hpp"
-#include "DisplayComm/Factory.hpp"
-#include "DisplayComm/DisplayResetIf.hpp"
-#include "DisplayComm/DisplayDataCmdIf.hpp"
 #include "DisplayComm/DisplayCommIf.hpp"
-#include "Sh1106/Factory.hpp"
+#include "DisplayComm/DisplayDataCmdIf.hpp"
+#include "DisplayComm/DisplayResetIf.hpp"
+#include "DisplayComm/Factory.hpp"
 #include "MonochromeGraphicDisplay/DisplayDriverIf.hpp"
-#include "MonochromeView/ConstView.hpp"
+#include "MonochromeGraphicDisplay/Fonts/MonochromeFont16x26.hpp"
 #include "MonochromeView/ConstStorageView.hpp"
+#include "MonochromeView/ConstView.hpp"
 #include "MonochromeView/DynamicView.hpp"
+#include "Sh1106/Factory.hpp"
 
 using namespace disch::firmware;
 
@@ -67,7 +66,7 @@ void AppImpl::Tick()
 #ifdef DEBUG
 void AppImpl::DebugTick()
 {
-    volatile static uint32_t dbgType = 1U;
+    volatile static uint32_t dbgType = 3U;
 
     if (dbgType == 1U)
     {
@@ -106,9 +105,11 @@ void AppImpl::DebugTick()
 
     if (dbgType == 2U)
     {
-        static const MonochromeView::ConstStorageView<26U, 16U> zeroFont16x26{0x00,0x00,0x00,0xFC,0xFF,0x1F,0x0F,0x0F,0x0F,0x0F,0x1F,0x3F,0xFC,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0x3F,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3F,0x3F,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x00,0x00,0x00,0x00,0x00};
         volatile static uint8_t drawOption2 = MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR;
+        volatile static char c = 'P';
         static int8_t y = 0;
+
+        const MonochromeView::ViewIf& chView = MonochromeGraphicDisplay::font26x16.GetCharView(c);
 
         m_pDisplayDriver->GetView().Fill(false);
         m_pDisplayDriver->GetView().DrawAt(10, y, zeroFont16x26, drawOption2);
@@ -120,12 +121,14 @@ void AppImpl::DebugTick()
 
     if (dbgType == 3U)
     {
-        static const MonochromeView::ConstStorageView<26U, 16U> zeroFont16x26_2{0x00,0x00,0x00,0xFC,0xFF,0x1F,0x0F,0x0F,0x0F,0x0F,0x1F,0x3F,0xFC,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0x3F,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3F,0x3F,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x00,0x00,0x00,0x00,0x00};
-        volatile static uint8_t drawOption3 = MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR;
+        volatile static uint8_t drawOption3 = MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR | MonochromeView::DRAW_OPT_NEGATIVE_COLORS;
+        volatile static char c = 'P';
         static int8_t x = 0;
 
-        m_pDisplayDriver->GetView().Fill(false);
-        m_pDisplayDriver->GetView().DrawAt(x, 10, zeroFont16x26_2, drawOption3);
+        const MonochromeView::ViewIf& chView = MonochromeGraphicDisplay::font26x16.GetCharView(c);
+
+        m_pDisplayDriver->GetView().Fill(true);
+        m_pDisplayDriver->GetView().DrawAt(x, 10, chView, drawOption3);
         m_pDisplayDriver->RefreshScreen();
 
         ++x;

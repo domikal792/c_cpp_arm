@@ -65,6 +65,7 @@ void DynamicView::DrawAt(const int32_t x,
     const bool transpose = static_cast<bool>(drawOption & DRAW_OPT_TRANSPOSE);
     const bool xMirror = static_cast<bool>(drawOption & DRAW_OPT_X_MIRROR);
     const bool yMirror = static_cast<bool>(drawOption & DRAW_OPT_Y_MIRROR);
+    const bool negColors = static_cast<bool>(drawOption & DRAW_OPT_NEGATIVE_COLORS);
 
     const size_t anotherViewWidth = (transpose ? rAnotherView.Height() : rAnotherView.Width());
     const size_t anotherViewHeight = (transpose ? rAnotherView.Width() : rAnotherView.Height());
@@ -124,7 +125,7 @@ void DynamicView::DrawAt(const int32_t x,
                 pxColor = rAnotherView.GetPixelColor(xAnotherViewCurrentPx, yAnotherViewCurrentPx);
             }
             
-            SetPixelColor(xCurrentPx, yCurrentPx, pxColor);
+            SetPixelColor(xCurrentPx, yCurrentPx, negColors ? pxColor : !pxColor);
 
             if (xMirror)
             {

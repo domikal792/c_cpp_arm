@@ -8,12 +8,18 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "MonochromeView/ViewIf.hpp"
+#include "assert.h"
+
+#include "MonochromeView/ConstStorageView.hpp"
 
 namespace MonochromeGraphicDisplay
 {
 
 /// Monochrome font.
+/// 
+/// @tparam WIDTH Font width in pixels.
+/// @tparam HEIGHT Font height in pixels.
+template<size_t WIDTH, size_t HEIGHT>
 class MonochromeFont
 {
 public:
@@ -21,59 +27,51 @@ public:
     ///
     /// @deprecated This constructor is deprecated and it will be removed when all fonts are converted to the views.
     /// 
-    /// @param width Font width in pixels
-    /// @param height Font height in pixels
+    /// @param pCharsViews Pointer to font characters views array. First element should has ASCII code.
     /// @param firstCharAsciiOffset Offset in ASCII table of the first character in font.
     /// @param charsNum Number of characters in font.
-    /// @param pCharsViews Pointer to font characters views array. First element should has ASCII code 
-    MonochromeFont(const size_t width, 
-                   const size_t height, 
+    MonochromeFont(const MonochromeView::ConstStorageView<WIDTH, HEIGHT>* const pCharsViews,
                    const size_t firstCharAsciiOffset, 
-                   const size_t charsNum, 
-                   const MonochromeView::ViewIf* const pCharsViews);
-
-    /// Construct a new Monochrome Font object
-    ///
-    /// @deprecated This constructor is deprecated and it will be removed when all fonts are converted to the views.
-    /// 
-    /// @param width Font width in pixels
-    /// @param height Font height in pixels
-    /// @param pData Pointer to font array data
-    MonochromeFont(uint8_t width, uint8_t height, const uint16_t * pData);
+                   const size_t charsNum) :
+        m_FirstCharAsciiOffset(firstCharAsciiOffset),
+        m_CharsNum(charsNum),
+        m_pCharsViews(pCharsViews)
+    {
+        assert(pCharsViews != nullptr);
+    }
 
     /// Get the Width object
     /// 
     /// @return uint8_t 
-	uint8_t GetWidth() const;
+	uint8_t GetWidth() const
+    {
+        return WIDTH;
+    }
     
     /// Get the Height object
     /// 
     /// @return uint8_t 
-	uint8_t GetHeight() const;
+	uint8_t GetHeight() const
+    {
+        return HEIGHT;
+    }
 
     /// Get character view.
     /// 
     /// @param character Character to get view of.
     ///
     /// @return Character view.
-    const MonochromeView::ViewIf& GetCharView(const char character);
-    
-    /// Get the Data object
-    ///
-    /// @deprecated This method is deprecated and it will be removed when all fonts are converted to the views.
-    ///
-    /// @return const uint16_t* 
-	const uint16_t * GetData() const;
+    const MonochromeView::ViewIf& GetCharView(const char character)
+    {
+        size_t charIdx = static_cast<size_t>(character) - m_FirstCharAsciiOffset;
+        assert(charIdx < m_CharsNum);
+        return m_pCharsViews[charIdx];
+    }
 
 private:
-    const size_t m_Width;
-	const size_t m_Height;
     const size_t m_FirstCharAsciiOffset;
     const size_t m_CharsNum;
-    const MonochromeView::ViewIf* const m_pCharsViews;
-
-    /// @deprecated This member is deprecated and it will be removed when all fonts are converted to the views.
-	const uint16_t * m_pData;
+    const MonochromeView::ConstStorageView<WIDTH, HEIGHT>* const m_pCharsViews;
 
 };
 

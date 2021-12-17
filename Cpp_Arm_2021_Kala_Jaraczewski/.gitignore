@@ -3,5 +3,6 @@
 
 Drivers/
 Debug/
+Release/
 .settings
 .mxproject

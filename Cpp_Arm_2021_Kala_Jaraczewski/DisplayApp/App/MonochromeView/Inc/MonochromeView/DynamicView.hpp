@@ -19,6 +19,9 @@ constexpr const uint8_t DRAW_OPT_X_MIRROR = 0x02U;
 /// Mirror a view vertically.
 constexpr const uint8_t DRAW_OPT_Y_MIRROR = 0x04U;
 
+/// Negative colors of a view.
+constexpr const uint8_t DRAW_OPT_NEGATIVE_COLORS = 0x08U;
+
 /// Dynamic view.
 class DynamicView : 
     public ViewIf
@@ -65,6 +68,9 @@ public:
     void Fill(const bool color);
 
 private:
+    DynamicView(const DynamicView&)  = delete;
+    void operator=(const DynamicView&) = delete;
+
     /// @copydoc MonochromeView::ViewIf::Data
     const uint8_t* Data() const override;
 
