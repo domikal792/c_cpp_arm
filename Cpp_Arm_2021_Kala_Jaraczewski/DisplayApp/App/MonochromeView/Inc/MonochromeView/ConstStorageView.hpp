@@ -8,7 +8,7 @@
 #include <cstdint>
 #include <cstddef>
 
-#include "ConstStorageView.hpp"
+#include "MonochromeView/ConstView.hpp"
 
 namespace MonochromeView
 {
