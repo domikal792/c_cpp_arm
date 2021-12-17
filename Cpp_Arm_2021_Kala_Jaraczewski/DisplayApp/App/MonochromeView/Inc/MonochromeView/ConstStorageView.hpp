@@ -36,7 +36,7 @@ public:
     }
 
 private:
-    const uint8_t m_Buffer[WIDTH * HEIGHT / ViewIf::PIXELS_PER_CELL];
+    const uint8_t m_Buffer[WIDTH * ((HEIGHT + ViewIf::PIXELS_PER_CELL - 1) / ViewIf::PIXELS_PER_CELL)];
 };
 
 }

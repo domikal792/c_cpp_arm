@@ -8,70 +8,52 @@
 #include <cstddef>
 #include <cstdint>
 
-#include "assert.h"
-
-#include "MonochromeView/ConstStorageView.hpp"
+#include "MonochromeView/ConstView.hpp"
 
 namespace MonochromeGraphicDisplay
 {
 
 /// Monochrome font.
-/// 
-/// @tparam WIDTH Font width in pixels.
-/// @tparam HEIGHT Font height in pixels.
-template<size_t WIDTH, size_t HEIGHT>
 class MonochromeFont
 {
 public:
     /// Construct a new Monochrome Font object
-    ///
-    /// @deprecated This constructor is deprecated and it will be removed when all fonts are converted to the views.
     /// 
-    /// @param pCharsViews Pointer to font characters views array. First element should has ASCII code.
+    /// @param pCharsViews Pointer to font characters bytes array. First element should has ASCII code.
+    /// @param width Font width in pixels.
+    /// @param height Font height in pixels.
     /// @param firstCharAsciiOffset Offset in ASCII table of the first character in font.
     /// @param charsNum Number of characters in font.
-    MonochromeFont(const MonochromeView::ConstStorageView<WIDTH, HEIGHT>* const pCharsViews,
+    MonochromeFont(const uint8_t* const pCharsBytes,
+                   const size_t width,
+                   const size_t height,
                    const size_t firstCharAsciiOffset, 
-                   const size_t charsNum) :
-        m_FirstCharAsciiOffset(firstCharAsciiOffset),
-        m_CharsNum(charsNum),
-        m_pCharsViews(pCharsViews)
-    {
-        assert(pCharsViews != nullptr);
-    }
+                   const size_t charsNum);
 
     /// Get the Width object
     /// 
     /// @return uint8_t 
-	uint8_t GetWidth() const
-    {
-        return WIDTH;
-    }
+	uint8_t GetWidth() const;
     
     /// Get the Height object
     /// 
     /// @return uint8_t 
-	uint8_t GetHeight() const
-    {
-        return HEIGHT;
-    }
+	uint8_t GetHeight() const;
 
     /// Get character view.
     /// 
     /// @param character Character to get view of.
     ///
     /// @return Character view.
-    const MonochromeView::ViewIf& GetCharView(const char character)
-    {
-        size_t charIdx = static_cast<size_t>(character) - m_FirstCharAsciiOffset;
-        assert(charIdx < m_CharsNum);
-        return m_pCharsViews[charIdx];
-    }
+    MonochromeView::ConstView GetCharView(const char character) const;
 
 private:
+    const size_t m_Width;
+    const size_t m_Height;
     const size_t m_FirstCharAsciiOffset;
     const size_t m_CharsNum;
-    const MonochromeView::ConstStorageView<WIDTH, HEIGHT>* const m_pCharsViews;
+    const size_t m_SingleCharBytesNum;
+    const uint8_t* const m_pCharsBytes;
 
 };
 

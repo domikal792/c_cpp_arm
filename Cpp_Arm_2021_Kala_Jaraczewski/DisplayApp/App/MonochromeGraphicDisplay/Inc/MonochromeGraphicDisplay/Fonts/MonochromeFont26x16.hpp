@@ -10,7 +10,7 @@
 namespace MonochromeGraphicDisplay
 {
 
-extern MonochromeFont<26U, 16U> font26x16;
+extern MonochromeFont font26x16;
 
 }
 

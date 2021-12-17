@@ -109,7 +109,7 @@ void AppImpl::DebugTick()
         volatile static char c = 'P';
         static int8_t y = 0;
 
-        const MonochromeView::ViewIf& chView = MonochromeGraphicDisplay::font26x16.GetCharView(c);
+        MonochromeView::ConstView chView = MonochromeGraphicDisplay::font26x16.GetCharView(c);
 
         m_pDisplayDriver->GetView().Fill(false);
         m_pDisplayDriver->GetView().DrawAt(10, y, chView, drawOption2);
@@ -125,7 +125,7 @@ void AppImpl::DebugTick()
         volatile static char c = 'P';
         static int8_t x = 0;
 
-        const MonochromeView::ViewIf& chView = MonochromeGraphicDisplay::font26x16.GetCharView(c);
+        MonochromeView::ConstView chView = MonochromeGraphicDisplay::font26x16.GetCharView(c);
 
         m_pDisplayDriver->GetView().Fill(true);
         m_pDisplayDriver->GetView().DrawAt(x, 10, chView, drawOption3);
