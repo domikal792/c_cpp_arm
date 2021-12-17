@@ -10,6 +10,15 @@
 namespace MonochromeView
 {
 
+/// Draw transposition of a view.
+constexpr const uint8_t DRAW_OPT_TRANSPOSE = 0x01U;
+
+/// Mirror a view horizontally.
+constexpr const uint8_t DRAW_OPT_X_MIRROR = 0x02U;
+
+/// Mirror a view vertically.
+constexpr const uint8_t DRAW_OPT_Y_MIRROR = 0x04U;
+
 class DynamicView : 
     public ViewIf
 {
@@ -35,15 +44,19 @@ public:
     /// 
     /// @param x Horizontal coordinate.
     /// @param y Vertical coordinate.
-    /// @param rView View to draw.
-    void DrawAt(const int32_t x, const int32_t y, const ViewIf& rView);
+    /// @param rAnotherView View to draw.
+    /// @param drawOption Drawing option DRAW_OPT_TRANSPOSE or DRAW_OPT_X_MIRROR or DRAW_OPT_Y_MIRROR
+    void DrawAt(const int32_t x, 
+                const int32_t y, 
+                const ViewIf& rAnotherView, 
+                const uint8_t drawOption = 0U);
 
-    /// Draw at {x, y} a single pixel.
+    /// Set color of a pixel at {x, y}.
     /// 
     /// @param x Horizontal coordinate.
     /// @param y Vertical coordinate.
     /// @param color Color of the pixel. [0 - black, 1 - default color].
-    void DrawAt(const size_t x, const size_t y, const bool color);
+    void SetPixelColor(const size_t x, const size_t y, const bool color);
 
     /// Fill the whole view with a single color.
     /// 

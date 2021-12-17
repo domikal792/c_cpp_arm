@@ -38,36 +38,6 @@ AppImpl::AppImpl(const AppInitStruct* const pAppInitStruct)
         pAppInitStruct->m_pDisplaySpiInterface->m_CsPin,
         m_pDisplayDataCmd.get()
     ));
-
-    m_pDisplayDriver.reset(Sh1106::Factory::Create128x64Driver(m_pDisplayComm.get(), m_pDisplayReset.get()));
-
-    MonochromeView::ConstView photo(disch::firmware::sgLogoPhoto.getData(), 128U, 64U);
-    m_pDisplayDriver->GetView().Draw(0U, 0U, photo);
-    m_pDisplayDriver->RefreshScreen();
-
-
-//    SH1106::getInstance().setCommInterface(m_pDisplayComm.get(), m_pDisplayReset.get());
-//    SH1106::getInstance().init();
-//
-//    SH1106::getInstance().displayPhoto(disch::firmware::sgLogoPhoto);
-
-//    constexpr const char ARM_CPP[] = "ARM CPP";
-//    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(ARM_CPP) - 1) * 16) / 2, 0 });
-//    SH1106::getInstance().writeString(ARM_CPP, font16x26, SH1106::COLOR_BLUE);
-//
-//    constexpr const char Y2021[] = "2021";
-//    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(Y2021) - 1) * 7) / 2, 28 });
-//    SH1106::getInstance().writeString(Y2021, font7x10, SH1106::COLOR_BLUE);
-//
-//    constexpr const char KALA_JARACZEWSKI[] = "Kala, Jaraczewski";
-//    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(KALA_JARACZEWSKI) - 1) * 7) / 2, 40 });
-//    SH1106::getInstance().writeString(KALA_JARACZEWSKI, font7x10, SH1106::COLOR_BLUE);
-//
-//    constexpr const char TELEINFORMATYKA[] = "Teleinformatyka";
-//    SH1106::getInstance().setCursor({ (SH1106::WIDTH - (sizeof(TELEINFORMATYKA) - 1) * 6) / 2, 52 });
-//    SH1106::getInstance().writeString(TELEINFORMATYKA, font6x8, SH1106::COLOR_BLUE);
-//
-//    SH1106::getInstance().updateScreen();
 }
 
 AppImpl::~AppImpl()
@@ -77,18 +47,87 @@ AppImpl::~AppImpl()
 
 void AppImpl::Tick()
 {
-    LL_mDelay(500);
-    static bool inverse = false;
-    static uint8_t contrast = 255;
-    m_pDisplayDriver->InverseColor(inverse);
-    m_pDisplayDriver->SetContrast(contrast);
-    contrast -= 5;
-    inverse = !inverse;
+
 }
 
 #ifdef DEBUG
 void AppImpl::DebugTick()
 {
+    volatile static uint32_t dbgType = 1U;
 
+    if (dbgType == 1U)
+    {
+        static const MonochromeView::ConstView photo(disch::firmware::sgLogoPhoto.getData(), 128U, 64U);
+        static int32_t x = -128;
+        static int32_t y = -64;
+        static bool inverse = false;
+        static uint8_t contrast = 255;
+        static uint8_t cnt = 0;
+        volatile static uint8_t drawOption1 = MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR;
+
+        LL_mDelay(10);
+
+        if (cnt++ >= 50U)
+        {
+            m_pDisplayDriver->InverseColor(inverse);
+            m_pDisplayDriver->SetContrast(contrast);
+            contrast -= 5;
+            inverse = !inverse;
+            cnt = 0U;
+        }
+
+        m_pDisplayDriver->GetView().Fill(false);
+        m_pDisplayDriver->GetView().DrawAt(x, y, photo, drawOption1);
+        m_pDisplayDriver->RefreshScreen();
+
+        x += 2;
+        y += 1;
+        if (x == 128)
+        {
+            x = -128;
+            y = -64;
+            drawOption1 = (drawOption1 + 1) % 8;
+        }
+    }
+
+    if (dbgType == 2U)
+    {
+        constexpr const uint8_t data[] = {0x00,0x00,0x00,0xFC,0xFF,0x1F,0x0F,0x0F,0x0F,0x0F,0x1F,0x3F,0xFC,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0x3F,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3F,0x3F,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x00,0x00,0x00,0x00,0x00};
+        static const MonochromeView::ConstView zeroFont16x26(data, 26U, 16U);
+        volatile static uint8_t drawOption2 = MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR;
+        static int8_t y = 0;
+
+        m_pDisplayDriver->GetView().Fill(false);
+        m_pDisplayDriver->GetView().DrawAt(10, y, zeroFont16x26, drawOption2);
+        m_pDisplayDriver->RefreshScreen();
+
+        ++y;
+        LL_mDelay(30U);
+    }
+
+    if (dbgType == 3U)
+    {
+        constexpr const uint8_t data[] = {0x00,0x00,0x00,0xFC,0xFF,0x1F,0x0F,0x0F,0x0F,0x0F,0x1F,0x3F,0xFC,0xF0,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x3F,0x3F,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3F,0x3F,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x3E,0x00,0x00,0x00,0x00,0x00};
+        static const MonochromeView::ConstView zeroFont16x26(data, 26U, 16U);
+        volatile static uint8_t drawOption3 = MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR;
+        static int8_t x = 0;
+
+        m_pDisplayDriver->GetView().Fill(false);
+        m_pDisplayDriver->GetView().DrawAt(x, 10, zeroFont16x26, drawOption3);
+        m_pDisplayDriver->RefreshScreen();
+
+        ++x;
+        LL_mDelay(30U);
+    }
+
+    if (dbgType == 4U)
+    {
+        m_pDisplayDriver->InverseColor(true);
+    }
+
+    if (dbgType == 5U)
+    {
+        m_pDisplayDriver->InverseColor(false);
+    }
 }
 #endif
