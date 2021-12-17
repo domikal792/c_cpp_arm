@@ -12,7 +12,7 @@
 #include "DisplayComm/DisplayResetIf.hpp"
 #include "DisplayComm/Factory.hpp"
 #include "MonochromeGraphicDisplay/DisplayDriverIf.hpp"
-#include "MonochromeGraphicDisplay/Fonts/MonochromeFont16x26.hpp"
+#include "MonochromeGraphicDisplay/Fonts/MonochromeFont26x16.hpp"
 #include "MonochromeView/ConstStorageView.hpp"
 #include "MonochromeView/ConstView.hpp"
 #include "MonochromeView/DynamicView.hpp"
@@ -112,7 +112,7 @@ void AppImpl::DebugTick()
         const MonochromeView::ViewIf& chView = MonochromeGraphicDisplay::font26x16.GetCharView(c);
 
         m_pDisplayDriver->GetView().Fill(false);
-        m_pDisplayDriver->GetView().DrawAt(10, y, zeroFont16x26, drawOption2);
+        m_pDisplayDriver->GetView().DrawAt(10, y, chView, drawOption2);
         m_pDisplayDriver->RefreshScreen();
 
         ++y;

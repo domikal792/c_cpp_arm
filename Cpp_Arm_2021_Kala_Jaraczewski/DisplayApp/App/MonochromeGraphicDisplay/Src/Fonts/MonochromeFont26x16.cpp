@@ -4,7 +4,7 @@
 
 #include "MonochromeView/ConstStorageView.hpp"
 
-#include "MonochromeGraphicDisplay/Fonts/MonochromeFont16x26.hpp"
+#include "MonochromeGraphicDisplay/Fonts/MonochromeFont26x16.hpp"
 
 namespace MonochromeGraphicDisplay
 {
