@@ -10,6 +10,7 @@
 namespace MonochromeView
 {
 
+/// Constant view.
 class ConstView : 
     public ViewIf
 {

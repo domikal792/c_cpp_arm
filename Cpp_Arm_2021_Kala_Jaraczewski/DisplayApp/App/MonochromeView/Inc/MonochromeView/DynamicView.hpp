@@ -19,6 +19,7 @@ constexpr const uint8_t DRAW_OPT_X_MIRROR = 0x02U;
 /// Mirror a view vertically.
 constexpr const uint8_t DRAW_OPT_Y_MIRROR = 0x04U;
 
+/// Dynamic view.
 class DynamicView : 
     public ViewIf
 {
