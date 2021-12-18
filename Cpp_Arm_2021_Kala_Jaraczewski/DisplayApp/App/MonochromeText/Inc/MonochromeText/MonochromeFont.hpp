@@ -2,15 +2,15 @@
 ///
 /// @note Copyright (c) 2021 ArmCpp - Kala, Jaraczewski
 
-#ifndef MONOCHROMEGRAPHICDISPLAY_MONOCHROMEFONT_HPP
-#define MONOCHROMEGRAPHICDISPLAY_MONOCHROMEFONT_HPP
+#ifndef MONOCHROMETEXT_MONOCHROMEFONT_HPP
+#define MONOCHROMETEXT_MONOCHROMEFONT_HPP
 
 #include <cstddef>
 #include <cstdint>
 
 #include "MonochromeView/ConstView.hpp"
 
-namespace MonochromeGraphicDisplay
+namespace MonochromeText
 {
 
 /// Monochrome font.
@@ -48,6 +48,9 @@ public:
     MonochromeView::ConstView GetCharView(const char character) const;
 
 private:
+    MonochromeFont(const MonochromeFont&) = delete;
+    void operator=(const MonochromeFont&) = delete;
+
     const size_t m_Width;
     const size_t m_Height;
     const size_t m_FirstCharAsciiOffset;

@@ -4,9 +4,9 @@
 
 #include "assert.h"
 
-#include "MonochromeGraphicDisplay/MonochromeFont.hpp"
+#include "MonochromeText/MonochromeFont.hpp"
 
-namespace MonochromeGraphicDisplay
+namespace MonochromeText
 {
 
 MonochromeFont::MonochromeFont(const uint8_t* const pCharsBytes,

@@ -3,9 +3,9 @@
 /// @note Copyright (c) 2021 ArmCpp - Kala, Jaraczewski
 
 
-#include "MonochromeGraphicDisplay/Fonts/MonochromeFont7x10.hpp"
+#include "MonochromeText/Fonts/MonochromeFont10x7.hpp"
 
-namespace MonochromeGraphicDisplay
+namespace MonochromeText
 {
 
 static const uint8_t font10x7Bytes [] = {
@@ -107,6 +107,6 @@ static const uint8_t font10x7Bytes [] = {
 };
 
 // TODO: Test if displays correctly.
-MonochromeFont font10x7{ font10x7Bytes, 10U, 8U, static_cast<size_t>(' '), (sizeof(font10x7Bytes) / 10U) };
+const MonochromeFont font10x7{ font10x7Bytes, 10U, 8U, static_cast<size_t>(' '), (sizeof(font10x7Bytes) / 10U) };
 
 }

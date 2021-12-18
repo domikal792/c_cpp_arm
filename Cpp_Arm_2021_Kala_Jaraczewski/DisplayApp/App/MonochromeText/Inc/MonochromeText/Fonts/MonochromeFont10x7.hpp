@@ -2,15 +2,15 @@
 ///
 /// @note Copyright (c) 2021 ArmCpp - Kala, Jaraczewski
 
-#ifndef MONOCHROMEGRAPHICDISPLAY_MONOCHROMEFONT10X7_HPP
-#define MONOCHROMEGRAPHICDISPLAY_MONOCHROMEFONT10X7_HPP
+#ifndef MONOCHROMETEXT_MONOCHROMEFONT10X7_HPP
+#define MONOCHROMETEXT_MONOCHROMEFONT10X7_HPP
 
-#include "MonochromeGraphicDisplay/MonochromeFont.hpp"
+#include "MonochromeText/MonochromeFont.hpp"
 
-namespace MonochromeGraphicDisplay
+namespace MonochromeText
 {
 
-extern MonochromeFont font10x7;
+extern const MonochromeFont font10x7;
 
 }
 
