@@ -1,5 +1,8 @@
 # Aplikacja obsługująca wyświetlacz OLED ze sterownikiem SH1106
 
+## TODO: Update project documentation. Add missing README.md in components
+
+
 Library for driving display with SH1106 driver.
 
 ```plantuml
