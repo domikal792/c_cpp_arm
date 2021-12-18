@@ -125,7 +125,7 @@ void DynamicView::DrawAt(const int32_t x,
                 pxColor = rAnotherView.GetPixelColor(xAnotherViewCurrentPx, yAnotherViewCurrentPx);
             }
             
-            SetPixelColor(xCurrentPx, yCurrentPx, negColors ? pxColor : !pxColor);
+            SetPixelColor(xCurrentPx, yCurrentPx, negColors ? !pxColor : pxColor);
 
             if (xMirror)
             {

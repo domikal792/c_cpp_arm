@@ -13,6 +13,9 @@
 #include "DisplayComm/Factory.hpp"
 #include "MonochromeGraphicDisplay/DisplayDriverIf.hpp"
 #include "MonochromeGraphicDisplay/Fonts/MonochromeFont26x16.hpp"
+#include "MonochromeGraphicDisplay/Fonts/MonochromeFont11x18.hpp"
+#include "MonochromeGraphicDisplay/Fonts/MonochromeFont7x10.hpp"
+#include "MonochromeGraphicDisplay/Fonts/MonochromeFont6x8.hpp"
 #include "MonochromeView/ConstStorageView.hpp"
 #include "MonochromeView/ConstView.hpp"
 #include "MonochromeView/DynamicView.hpp"
@@ -66,7 +69,7 @@ void AppImpl::Tick()
 #ifdef DEBUG
 void AppImpl::DebugTick()
 {
-    volatile static uint32_t dbgType = 3U;
+    volatile static uint32_t dbgType = 6U;
 
     if (dbgType == 1U)
     {
@@ -143,6 +146,33 @@ void AppImpl::DebugTick()
     if (dbgType == 5U)
     {
         m_pDisplayDriver->InverseColor(false);
+    }
+
+    if (dbgType == 6U)
+    {
+        volatile static uint8_t drawOption4 = MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR;
+        volatile static char c = ' ';
+        static int8_t x = 0;
+        static uint8_t cnt = 0U;
+
+        MonochromeView::ConstView chView = MonochromeGraphicDisplay::font8x6.GetCharView(c);
+
+        m_pDisplayDriver->GetView().Fill(false);
+        m_pDisplayDriver->GetView().DrawAt(x, 10, chView, drawOption4);
+        m_pDisplayDriver->RefreshScreen();
+
+        ++x;
+
+        if ((cnt++ == 10U))
+        {
+            cnt = 0U;
+            if (++c >= '~')
+            {
+                c = ' ';
+            }
+        }
+
+        LL_mDelay(30U);
     }
 }
 #endif

@@ -32,12 +32,12 @@ public:
 
     /// Get the Width object
     /// 
-    /// @return uint8_t 
+    /// @return uint8_t Font width in pixels.
 	uint8_t GetWidth() const;
     
     /// Get the Height object
     /// 
-    /// @return uint8_t 
+    /// @return uint8_t Font height in pixels.
 	uint8_t GetHeight() const;
 
     /// Get character view.
