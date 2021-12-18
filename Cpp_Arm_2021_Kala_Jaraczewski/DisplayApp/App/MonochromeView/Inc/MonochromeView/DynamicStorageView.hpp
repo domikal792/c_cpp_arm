@@ -36,6 +36,9 @@ public:
     }
 
 private:
+    DynamicStorageView(const DynamicStorageView&) = delete;
+    void operator=(const DynamicStorageView&) = delete;
+
     uint8_t m_Buffer[WIDTH * ((HEIGHT + ViewIf::PIXELS_PER_CELL - 1) / ViewIf::PIXELS_PER_CELL)];
 };
 

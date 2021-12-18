@@ -12,17 +12,16 @@
 #include "DisplayComm/DisplayResetIf.hpp"
 #include "DisplayComm/Factory.hpp"
 #include "MonochromeGraphicDisplay/DisplayDriverIf.hpp"
-#include "MonochromeGraphicDisplay/Fonts/MonochromeFont26x16.hpp"
-#include "MonochromeGraphicDisplay/Fonts/MonochromeFont11x18.hpp"
-#include "MonochromeGraphicDisplay/Fonts/MonochromeFont7x10.hpp"
-#include "MonochromeGraphicDisplay/Fonts/MonochromeFont6x8.hpp"
+#include "MonochromeGraphicLogoPolSl.hpp"
+#include "MonochromeText/Fonts/MonochromeFont10x7.hpp"
+#include "MonochromeText/Fonts/MonochromeFont18x11.hpp"
+#include "MonochromeText/Fonts/MonochromeFont26x16.hpp"
+#include "MonochromeText/Fonts/MonochromeFont8x6.hpp"
 #include "MonochromeView/ConstStorageView.hpp"
 #include "MonochromeView/ConstView.hpp"
 #include "MonochromeView/DynamicStorageView.hpp"
 #include "MonochromeView/DynamicView.hpp"
 #include "Sh1106/Factory.hpp"
-
-using namespace disch::firmware;
 
 AppImpl::AppImpl(const AppInitStruct* const pAppInitStruct)
 {
@@ -74,7 +73,6 @@ void AppImpl::DebugTick()
 
     if (dbgType == 1U)
     {
-        static const MonochromeView::ConstView photo(disch::firmware::sgLogoPhoto.getData(), 128U, 64U);
         static int32_t x = -128;
         static int32_t y = -64;
         static bool inverse = false;
@@ -94,7 +92,7 @@ void AppImpl::DebugTick()
         }
 
         m_pDisplayDriver->GetView().Fill(false);
-        m_pDisplayDriver->GetView().DrawAt(x, y, photo, drawOption1);
+        m_pDisplayDriver->GetView().DrawAt(x, y, logoPolSl, drawOption1);
         m_pDisplayDriver->RefreshScreen();
 
         x += 2;
@@ -113,7 +111,7 @@ void AppImpl::DebugTick()
         volatile static char c = 'P';
         static int8_t y = 0;
 
-        MonochromeView::ConstView chView = MonochromeGraphicDisplay::font26x16.GetCharView(c);
+        MonochromeView::ConstView chView = MonochromeText::font26x16.GetCharView(c);
 
         m_pDisplayDriver->GetView().Fill(false);
         m_pDisplayDriver->GetView().DrawAt(10, y, chView, drawOption2);
@@ -129,7 +127,7 @@ void AppImpl::DebugTick()
         volatile static char c = 'P';
         static int8_t x = 0;
 
-        MonochromeView::ConstView chView = MonochromeGraphicDisplay::font26x16.GetCharView(c);
+        MonochromeView::ConstView chView = MonochromeText::font26x16.GetCharView(c);
 
         m_pDisplayDriver->GetView().Fill(true);
         m_pDisplayDriver->GetView().DrawAt(x, 10, chView, drawOption3);
@@ -156,7 +154,7 @@ void AppImpl::DebugTick()
         static int8_t x = 0;
         static uint8_t cnt = 0U;
 
-        MonochromeView::ConstView chView = MonochromeGraphicDisplay::font8x6.GetCharView(c);
+        MonochromeView::ConstView chView = MonochromeText::font8x6.GetCharView(c);
 
         m_pDisplayDriver->GetView().Fill(false);
         m_pDisplayDriver->GetView().DrawAt(x, 10, chView, drawOption4);
@@ -185,7 +183,7 @@ void AppImpl::DebugTick()
         static int8_t x = 0;
 
         frame.Fill(true);
-        MonochromeView::ConstView chView = MonochromeGraphicDisplay::font8x6.GetCharView(c);
+        MonochromeView::ConstView chView = MonochromeText::font8x6.GetCharView(c);
         frame.DrawAt(15, 14, chView, drawOption5);
 
         m_pDisplayDriver->GetView().Fill(false);

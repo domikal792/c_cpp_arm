@@ -11,7 +11,7 @@ void MonochromeText::WriteChar(MonochromeView::DynamicView& rView,
                                const size_t x, const size_t y, 
                                const MonochromeFont& rFont, 
                                const char character, 
-                               const uint8_t drawOption = MonochromeView::DRAW_OPT_NONE)
+                               const uint8_t drawOption)
 {
     // TODO: Add implementation.
 }
@@ -20,7 +20,7 @@ void MonochromeText::WriteString(MonochromeView::DynamicView& rView,
                                  const size_t x, const size_t y, 
                                  const MonochromeFont& rFont, 
                                  const char* const pString, 
-                                 const uint8_t drawOption = MonochromeView::DRAW_OPT_NONE)
+                                 const uint8_t drawOption)
 {
     // TODO: Add implementation.
 }

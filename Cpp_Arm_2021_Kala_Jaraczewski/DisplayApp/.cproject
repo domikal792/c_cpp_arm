@@ -74,6 +74,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/Sh1106/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/MonochromeGraphicDisplay/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/MonochromeView/Inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/MonochromeText/Inc}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.1504624744" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp"/>
 							</tool>
@@ -176,6 +177,7 @@
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/Sh1106/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/MonochromeGraphicDisplay/Inc}&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/MonochromeView/Inc}&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;${workspace_loc:/DisplayApp/App/MonochromeText/Inc}&quot;"/>
 								</option>
 								<inputType id="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp.287635891" superClass="com.st.stm32cube.ide.mcu.gnu.managedbuild.tool.cpp.compiler.input.cpp"/>
 							</tool>

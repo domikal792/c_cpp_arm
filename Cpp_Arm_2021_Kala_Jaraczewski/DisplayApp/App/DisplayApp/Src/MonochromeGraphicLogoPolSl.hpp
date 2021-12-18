@@ -6,13 +6,8 @@
 #ifndef MONOCHROMEGRAPHICDISPLAY_MONOCHROMEGRAPHICLOGOPOLSL_HPP
 #define MONOCHROMEGRAPHICDISPLAY_MONOCHROMEGRAPHICLOGOPOLSL_HPP
 
-#include "MonochromeGraphicDisplay/MonochromeGraphic.hpp"
+#include "MonochromeView/ConstView.hpp" 
 
-namespace MonochromeGraphicDisplay
-{
-
-extern MonochromeGraphic LogoPolSl;
-
-}
+extern const MonochromeView::ConstView logoPolSl;
 
 #endif
