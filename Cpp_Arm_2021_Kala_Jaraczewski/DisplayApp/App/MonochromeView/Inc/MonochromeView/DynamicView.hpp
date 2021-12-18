@@ -58,6 +58,17 @@ public:
                 const ViewIf& rAnotherView, 
                 const uint8_t drawOption = DRAW_OPT_NONE);
 
+    /// Draw line between {x1, y1} and {x2, y2} points.
+    /// 
+    /// @param x1 First point position in pixles, starting from left edge.
+    /// @param y1 First point position in pixles, starting from top edge.
+    /// @param x2 Second point position in pixles, starting from left edge.
+    /// @param y2 Second point position in pixles, starting from top edge.
+    /// @param color [0 - black, 1 - default display color]
+    void DrawLine(const size_t x1, const size_t y1, 
+                  const size_t x2, const size_t y2, 
+                  const bool color);
+
     /// Set color of a pixel at {x, y}.
     /// 
     /// @param x Horizontal coordinate.

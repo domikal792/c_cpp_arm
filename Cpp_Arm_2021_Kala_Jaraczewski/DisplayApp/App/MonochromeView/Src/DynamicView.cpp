@@ -152,6 +152,14 @@ void DynamicView::DrawAt(const int32_t x,
     }
 }
 
+void DynamicView::DrawLine(const size_t x1, const size_t y1, 
+                           const size_t x2, const size_t y2, 
+                           const bool color)
+{
+    // TODO: Draw line, see SH1106::drawLine in DishFirmwareSH1106.cpp file
+    // Do not validate points coordinates since SetPixelColor cares about it.
+}
+
 void DynamicView::SetPixelColor(const size_t x, const size_t y, const bool color)
 {
     if ((x < m_Width) && (y < m_Height))
