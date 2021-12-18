@@ -1,4 +1,6 @@
 /// @file AppInitStruct.h
+///
+/// @note Copyright (c) 2021 ArmCpp - Kala, Jaraczewski
 
 #ifndef APP_INIT_STRUCT_H
 #define APP_INIT_STRUCT_H

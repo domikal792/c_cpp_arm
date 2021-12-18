@@ -1,4 +1,6 @@
 /// @file AppCInterface.cpp
+///
+/// @note Copyright (c) 2021 ArmCpp - Kala, Jaraczewski
 
 #include "AppCInterface.h"
 #include "assert.h"

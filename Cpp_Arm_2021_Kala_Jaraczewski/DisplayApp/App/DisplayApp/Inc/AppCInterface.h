@@ -1,4 +1,6 @@
 /// @file AppCInterface.h
+///
+/// @note Copyright (c) 2021 ArmCpp - Kala, Jaraczewski
 
 #ifndef APP_C_INTERFACE_H
 #define APP_C_INTERFACE_H
