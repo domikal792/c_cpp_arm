@@ -10,6 +10,9 @@
 namespace MonochromeView
 {
 
+/// No additional draw options.
+constexpr const uint8_t DRAW_OPT_NONE = 0x00U;
+
 /// Draw transposition of a view.
 constexpr const uint8_t DRAW_OPT_TRANSPOSE = 0x01U;
 
@@ -53,7 +56,7 @@ public:
     void DrawAt(const int32_t x, 
                 const int32_t y, 
                 const ViewIf& rAnotherView, 
-                const uint8_t drawOption = 0U);
+                const uint8_t drawOption = DRAW_OPT_NONE);
 
     /// Set color of a pixel at {x, y}.
     /// 

@@ -28,7 +28,7 @@ public:
 
     static size_t GetBufferSize(const size_t width, const size_t height)
     {
-        return (width * height / ViewIf::PIXELS_PER_CELL);
+        return (width * ((height + ViewIf::PIXELS_PER_CELL - 1U) / ViewIf::PIXELS_PER_CELL));
     }
 
 private:
