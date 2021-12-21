@@ -163,8 +163,44 @@ void DynamicView::DrawLine(const size_t x1, const size_t y1,
                            const size_t x2, const size_t y2, 
                            const bool color)
 {
-    // TODO: Draw line, see SH1106::drawLine in DishFirmwareSH1106.cpp file
+    
+    // TODO: Check and remove below comments
+    // Draw line, see SH1106::drawLine in DishFirmwareSH1106.cpp file
     // Do not validate points coordinates since SetPixelColor cares about it.
+    int32_t deltaX = abs(x2 - x1);
+    int32_t deltaY = abs(y2 - y2);
+    int32_t signX = ((x1 < x2) ? 1 : -1);
+	int32_t signY = ((y1 < y2) ? 1 : -1);
+
+	int32_t error = abs(x2 - x1) - abs(y2 - y2);
+	int32_t error2;
+
+    SetPixelColor(x2, y2, color);
+	while(((x1 != x2) || (y1 != y2)))
+	{
+		SetPixelColor(x1, y1, color);
+		error2 = error * 2;
+		if(error2 > -deltaY)
+		{
+		  error -= deltaY;
+		  x1 += signX;
+		}
+		else
+		{
+		  /* nothing to do */
+		}
+
+		if(error2 < deltaX)
+		{
+		  error += deltaX;
+		  y1 += signY;
+		}
+		else
+		{
+		  /* nothing to do */
+		}
+	}
+
 }
 
 void DynamicView::SetPixelColor(const size_t x, const size_t y, const bool color)
