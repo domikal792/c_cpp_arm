@@ -52,6 +52,13 @@ bool DynamicView::GetPixelColor(const size_t x, const size_t y) const
     return color;
 }
 
+bool DynamicView::IfViewChanged() const
+{
+    const bool ifViewChanged = m_IfViewChanged;
+    m_IfViewChanged = false;
+    return ifViewChanged;
+}
+
 void DynamicView::DrawAt(const int32_t x, 
                          const int32_t y, 
                          const ViewIf& rAnotherView, 
@@ -175,6 +182,8 @@ void DynamicView::SetPixelColor(const size_t x, const size_t y, const bool color
         {
             m_pBuffer[cellIdx] &= ~(1U << pxInCellIdx);
         }
+
+        m_IfViewChanged = true;
     }
 }
 
@@ -183,6 +192,7 @@ void DynamicView::Fill(const bool color)
     const size_t bufferSize = ViewHelper::GetBufferSize(m_Width, m_Height);
     const uint8_t data = (color ? 0xFFU : 0x00U);
     std::memset(m_pBuffer, data, bufferSize);
+    m_IfViewChanged = true;
 }
 
 }

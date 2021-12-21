@@ -37,6 +37,9 @@ public:
     /// 
     /// @return Color of the pixel. [0 - black, 1 - default color].
     virtual bool GetPixelColor(const size_t x, const size_t y) const = 0;
+
+    /// Check if the view has been changed since the last check.
+    virtual bool IfViewChanged() const = 0;
 };
 
 }

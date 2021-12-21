@@ -5,6 +5,7 @@
 #include <cstring>
 
 #include "assert.h"
+#include "main.h"
 
 #include "AppImpl.hpp"
 #include "DisplayComm/DisplayCommIf.hpp"
@@ -12,18 +13,18 @@
 #include "DisplayComm/DisplayResetIf.hpp"
 #include "DisplayComm/Factory.hpp"
 #include "MonochromeGraphicDisplay/DisplayDriverIf.hpp"
-#include "MonochromeGraphicLogoPolSl.hpp"
-#include "MonochromeText/Fonts/MonochromeFont10x7.hpp"
-#include "MonochromeText/Fonts/MonochromeFont18x11.hpp"
-#include "MonochromeText/Fonts/MonochromeFont26x16.hpp"
-#include "MonochromeText/Fonts/MonochromeFont8x6.hpp"
-#include "MonochromeView/ConstStorageView.hpp"
-#include "MonochromeView/ConstView.hpp"
-#include "MonochromeView/DynamicStorageView.hpp"
-#include "MonochromeView/DynamicView.hpp"
 #include "Sh1106/Factory.hpp"
 
-AppImpl::AppImpl(const AppInitStruct* const pAppInitStruct)
+AppImpl::AppImpl(const AppInitStruct* const pAppInitStruct) :
+    m_ActivePage(0U),
+    m_LastScreenRefreshMs(0U),
+    m_LastAutoscrollMs(0U),
+    m_VertScrollbarFrameView(),
+    m_VertScrollbarView(),
+    m_LogPage(m_Pages[0U].m_View),
+    m_AboutPage(m_Pages[1U].m_View),
+    m_StatusPage(m_Pages[2U].m_View),
+    m_EmptyPage(m_Pages[3U].m_View)
 {
     m_pDisplayReset.reset(DisplayComm::Factory::CreateDisplayReset(
         pAppInitStruct->m_pDisplaySpiInterface->m_pResPort,
@@ -54,6 +55,20 @@ AppImpl::AppImpl(const AppInitStruct* const pAppInitStruct)
     assert(m_pDisplayDataCmd);
     assert(m_pDisplayComm);
     assert(m_pDisplayDriver);
+
+    m_Pages[0U].m_pPageIf = &m_LogPage;
+    m_Pages[1U].m_pPageIf = &m_AboutPage;
+    m_Pages[2U].m_pPageIf = &m_StatusPage;
+    m_Pages[3U].m_pPageIf = &m_EmptyPage;
+
+    for (size_t i = 0U; i < PAGES_NUM; ++i)
+    {
+        assert(m_Pages[i].m_pPageIf != nullptr);
+        m_Pages[i].m_pPageIf->OnCreate();
+    }
+
+    RefreshScrollbar();
+    RefreshScreen();
 }
 
 AppImpl::~AppImpl()
@@ -63,13 +78,85 @@ AppImpl::~AppImpl()
 
 void AppImpl::Tick()
 {
-
+    RefreshScreen();
 }
 
+void AppImpl::RefreshScreen()
+{
+    const uint32_t nowMs = HAL_GetTick();
+    const uint32_t refreshScreenDuration = nowMs - m_LastScreenRefreshMs;
+
+    if (refreshScreenDuration < SCREEN_REFRESH_MS)
+    {
+        return;
+    }
+
+    m_LastScreenRefreshMs = nowMs;
+    MonochromeView::DynamicView& rDisplayView = m_pDisplayDriver->GetView();
+    bool activePageChanged = false;
+    const uint32_t autoscrollDuration = nowMs - m_LastAutoscrollMs;
+
+    if (autoscrollDuration >= AUTOSCROLL_MS)
+    {
+        // Update scrollbar and active page.
+        m_LastAutoscrollMs = nowMs;
+        m_ActivePage = (m_ActivePage + 1U) % PAGES_NUM;
+        RefreshScrollbar();
+        activePageChanged = true;
+    }
+
+    // Refresh page.
+    m_Pages[m_ActivePage].m_pPageIf->Refresh();
+
+    const bool viewChanged = m_Pages[m_ActivePage].m_View.IfViewChanged();
+
+    if (activePageChanged || viewChanged)
+    {
+        rDisplayView.DrawAt(PAGE_X_COORD, PAGE_Y_COORD, m_Pages[m_ActivePage].m_View);
+        m_pDisplayDriver->RefreshScreen();
+    }
+}
+
+void AppImpl::RefreshScrollbar()
+{
+    constexpr const int32_t X_SCROLLBAR_POSITION = 1;
+    int32_t yScrollbarPosition = static_cast<int32_t>(m_ActivePage) * VERT_SCROLLBAR_HEIGHT;
+
+    MonochromeView::DynamicView& rDisplayView = m_pDisplayDriver->GetView();
+
+    if (yScrollbarPosition == 0)
+    {
+        yScrollbarPosition = 1U;
+    }
+
+    if ((static_cast<size_t>(yScrollbarPosition) + m_VertScrollbarView.Height()) >= VERT_SCROLLBAR_FRAME_HEIGHT)
+    {
+        yScrollbarPosition = VERT_SCROLLBAR_FRAME_HEIGHT - 1U;
+    }
+    
+    m_VertScrollbarFrameView.Fill(true);
+    m_VertScrollbarFrameView.DrawAt(X_SCROLLBAR_POSITION, yScrollbarPosition, m_VertScrollbarView);
+
+    rDisplayView.DrawAt(VERT_SCROLLBAR_FRAME_X_COORD, VERT_SCROLLBAR_FRAME_Y_COORD, m_VertScrollbarFrameView);
+}
+
+
+// TODO: Remove when the developing phase is finished.
 #ifdef DEBUG
+
+#include "MonochromeGraphicLogoPolSl.hpp"
+#include "MonochromeText/Fonts/MonochromeFont10x7.hpp"
+#include "MonochromeText/Fonts/MonochromeFont18x11.hpp"
+#include "MonochromeText/Fonts/MonochromeFont26x16.hpp"
+#include "MonochromeText/Fonts/MonochromeFont8x6.hpp"
+#include "MonochromeView/ConstStorageView.hpp"
+#include "MonochromeView/ConstView.hpp"
+#include "MonochromeView/DynamicStorageView.hpp"
+#include "MonochromeView/DynamicView.hpp"
+
 void AppImpl::DebugTick()
 {
-    volatile static uint32_t dbgType = 7U;
+    volatile static uint32_t dbgType = 0U;
 
     if (dbgType == 1U)
     {

@@ -47,6 +47,9 @@ public:
     /// @copydoc MonochromeView::ViewIf::GetPixelColor
     bool GetPixelColor(const size_t x, const size_t y) const override;
 
+    /// @copydoc MonochromeView::ViewIf::GetPixelColor::IfViewChanged
+    bool IfViewChanged() const;
+
     /// Draw at {x, y} another view.
     /// 
     /// @param x Horizontal coordinate.
@@ -91,6 +94,7 @@ private:
     uint8_t* const m_pBuffer;
     const size_t m_Width;
     const size_t m_Height;
+    mutable bool m_IfViewChanged;
 };
 
 }

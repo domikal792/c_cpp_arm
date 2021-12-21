@@ -49,4 +49,9 @@ bool ConstView::GetPixelColor(const size_t x, const size_t y) const
     return color;
 }
 
+bool ConstView::IfViewChanged() const
+{
+    return false;
+}
+
 };
