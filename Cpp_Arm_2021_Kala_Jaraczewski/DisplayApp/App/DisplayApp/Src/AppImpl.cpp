@@ -281,5 +281,16 @@ void AppImpl::DebugTick()
 
         LL_mDelay(30U);
     }
+
+    if (dbgType == 8U)
+    {
+        static int8_t x2 = 0;
+        m_pDisplayDriver->GetView().Fill(false);
+        m_pDisplayDriver->GetView().DrawLine(0, 0, x2, 63, true);
+        m_pDisplayDriver->RefreshScreen();
+
+        ++x2;
+        LL_mDelay(30U);
+    }
 }
 #endif

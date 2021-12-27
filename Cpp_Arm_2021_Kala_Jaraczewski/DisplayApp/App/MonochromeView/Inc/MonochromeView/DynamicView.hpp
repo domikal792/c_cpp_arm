@@ -68,8 +68,8 @@ public:
     /// @param x2 Second point position in pixles, starting from left edge.
     /// @param y2 Second point position in pixles, starting from top edge.
     /// @param color [0 - black, 1 - default display color]
-    void DrawLine(const size_t x1, const size_t y1, 
-                  const size_t x2, const size_t y2, 
+    void DrawLine(const int32_t x1, const int32_t y1,
+                  const int32_t x2, const int32_t y2,
                   const bool color);
 
     /// Set color of a pixel at {x, y}.
