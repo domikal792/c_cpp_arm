@@ -131,7 +131,7 @@ void AppImpl::RefreshScrollbar()
 
     if ((static_cast<size_t>(yScrollbarPosition) + m_VertScrollbarView.Height()) >= VERT_SCROLLBAR_FRAME_HEIGHT)
     {
-        yScrollbarPosition = VERT_SCROLLBAR_FRAME_HEIGHT - 1U;
+        yScrollbarPosition = VERT_SCROLLBAR_FRAME_HEIGHT - m_VertScrollbarView.Height() - 1U;
     }
     
     m_VertScrollbarFrameView.Fill(true);
