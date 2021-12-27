@@ -140,8 +140,6 @@ void AppImpl::RefreshScrollbar()
     rDisplayView.DrawAt(VERT_SCROLLBAR_FRAME_X_COORD, VERT_SCROLLBAR_FRAME_Y_COORD, m_VertScrollbarFrameView);
 }
 
-
-// TODO: Remove when the developing phase is finished.
 #ifdef DEBUG
 
 #include "MonochromeGraphicLogoPolSl.hpp"
