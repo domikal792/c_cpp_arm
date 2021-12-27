@@ -18,7 +18,7 @@ StatusPage::StatusPage(MonochromeView::DynamicView& rView) :
 
 void StatusPage::OnCreate() 
 {
-    constexpr const char LINE1[] = "Uptime:";
+    constexpr const char LINE1[] = "Czas pracy:";
     constexpr const uint8_t DRAW_OPT = (MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR);
     MonochromeText::MonochromeText::WriteString(m_rView, 0, 21, MonochromeText::font10x7, LINE1, DRAW_OPT);
 
