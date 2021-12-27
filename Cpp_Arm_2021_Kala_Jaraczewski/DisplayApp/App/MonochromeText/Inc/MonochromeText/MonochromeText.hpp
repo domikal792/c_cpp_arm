@@ -5,7 +5,6 @@
 #ifndef MONOCHROMETEXT_MONOCHROMETEXT_HPP
 #define MONOCHROMETEXT_MONOCHROMETEXT_HPP
 
-#include <cstddef>
 #include <cstdint>
 
 #include "MonochromeText/MonochromeFont.hpp"
@@ -27,7 +26,7 @@ public:
     /// @param character Character to write.
     /// @param drawOption Draw options, @see MonochromeView::DynamicView::DrawAt
     static void WriteChar(MonochromeView::DynamicView& rView, 
-                          const size_t x, const size_t y, 
+                          const int32_t x, const int32_t y, 
                           const MonochromeFont& rFont, 
                           const char character, 
                           const uint8_t drawOption = MonochromeView::DRAW_OPT_NONE);
@@ -41,7 +40,7 @@ public:
     /// @param pString Null-terminated C like string to write on the display.
     /// @param drawOption Draw options, @see MonochromeView::DynamicView::DrawAt
     static void WriteString(MonochromeView::DynamicView& rView, 
-                            const size_t x, const size_t y, 
+                            const int32_t x, const int32_t y, 
                             const MonochromeFont& rFont, 
                             const char* const pString, 
                             const uint8_t drawOption = MonochromeView::DRAW_OPT_NONE);
