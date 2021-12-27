@@ -106,7 +106,6 @@ static const uint8_t font8x6Bytes [] = {
 	0x40,0xa8,0x10,0x00,0x00,0x00,0x00,0x00, // ~
 };
 
-// TODO: Test if displays correctly.
 const MonochromeFont font8x6{ font8x6Bytes, 8U, 8U, static_cast<size_t>(' '), (sizeof(font8x6Bytes) / 8U) };
 
 }

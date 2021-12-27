@@ -8,7 +8,8 @@
 #include "main.h"
 
 #include "StatusPage.hpp"
-#include "MonochromeText/Fonts/MonochromeFont26x16.hpp"
+#include "MonochromeText/Fonts/MonochromeFont10x7.hpp"
+#include "MonochromeText/MonochromeText.hpp"
 
 StatusPage::StatusPage(MonochromeView::DynamicView& rView) :
     m_rView(rView)
@@ -17,17 +18,17 @@ StatusPage::StatusPage(MonochromeView::DynamicView& rView) :
 
 void StatusPage::OnCreate() 
 {
-    // Just refresh
-    Refresh();
+    constexpr const char LINE1[] = "Uptime:";
+    constexpr const uint8_t DRAW_OPT = (MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR);
+    MonochromeText::MonochromeText::WriteString(m_rView, 0, 21, MonochromeText::font10x7, LINE1, DRAW_OPT);
 
-    // TODO: Remove the following.
-    MonochromeView::ConstView id = MonochromeText::font26x16.GetCharView('3');
-    m_rView.DrawAt(53, 18, id, MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR);
+    Refresh();
 }
 
 void StatusPage::Refresh() 
 {
-    constexpr const char FORMAT[] = "Uptime: %lu.%lus";
+    constexpr const char FORMAT[] = "%lu.%lus";
+    constexpr const uint8_t DRAW_OPT = (MonochromeView::DRAW_OPT_TRANSPOSE | MonochromeView::DRAW_OPT_Y_MIRROR);
     constexpr const size_t BUF_SIZE = 30;
     static char buf[BUF_SIZE];
     const uint32_t nowMs = HAL_GetTick();
@@ -37,5 +38,5 @@ void StatusPage::Refresh()
     (void)std::memset(buf, 0, BUF_SIZE);
     (void)std::snprintf(buf, BUF_SIZE, FORMAT, timeIsSec, aTenthOfASec);
 
-    // TODO: Write prepared string into view.
+    MonochromeText::MonochromeText::WriteString(m_rView, 5, 33, MonochromeText::font10x7, buf, DRAW_OPT);
 }
