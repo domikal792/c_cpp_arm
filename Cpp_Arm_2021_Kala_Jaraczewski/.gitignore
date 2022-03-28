@@ -1,0 +1,9 @@
+*.su
+*.launch
+
+Drivers/
+Debug/
+Release/
+.settings
+.mxproject
+Doc/Doxygen/
